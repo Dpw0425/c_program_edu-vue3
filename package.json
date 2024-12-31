@@ -14,7 +14,9 @@
     "lint:style": "stylelint src/**/*.{css,scss,vue} --cache --fix",
     "prepare": "husky install",
     "commitlint": "commitlint --config commitlint.config.cjs -e -v",
-    "preinstall": "node ./scripts/preinstall.js"
+    "preinstall": "node ./scripts/preinstall.js",
+    "build:test": "vue-tsc && vite build --mode test",
+    "build:pro": "vue-tsc && vite build --mode production"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
@@ -53,6 +55,7 @@
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^2.2.0"
   }
 }

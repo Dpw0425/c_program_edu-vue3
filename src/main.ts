@@ -16,5 +16,9 @@ app.use(ElementPlus, {
   locale: zhCn, // element-plus 国际化
 })
 
+// 配置 svg 插件
+// @ts-ignore
+import 'virtual:svg-icons-register'
+
 // 挂载应用
 app.mount('#app')
