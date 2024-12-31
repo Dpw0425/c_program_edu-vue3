@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import App from '@/App.vue'
 
 // 引入 element-plus 插件与样式
 import ElementPlus from 'element-plus'
@@ -13,7 +13,7 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 const app = createApp(App)
 
 app.use(ElementPlus, {
-  locale: zhCn // element-plus 国际化
+  locale: zhCn, // element-plus 国际化
 })
 
 // 挂载应用
