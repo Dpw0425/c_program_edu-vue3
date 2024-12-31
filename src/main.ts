@@ -20,5 +20,10 @@ app.use(ElementPlus, {
 // @ts-ignore
 import 'virtual:svg-icons-register'
 
+// 引入自定义插件对象: 注册整个项目的全局组件
+import globalComponents from '@/components'
+// 安装自定义插件
+app.use(globalComponents)
+
 // 挂载应用
 app.mount('#app')
