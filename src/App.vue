@@ -1,20 +1,22 @@
 <template>
-  <div class="box">
-    <h1>我是 App 根组件</h1>
+  <div>
+    <el-button type="primary" size="default" :icon="Plus">主要按钮</el-button>
+    <el-button type="success" size="small" :icon="Edit">编辑按钮</el-button>
+    <el-button type="danger" size="default" :icon="Delete">删除按钮</el-button>
+    <el-pagination
+        :page-sizes="[100, 200, 300, 400]"
+        background
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="400"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-const str = 'hello world'
+  // 引入图标组件
+  import { Delete, Edit, Plus } from '@element-plus/icons-vue';
 </script>
 
-<style scoped lang="scss">
-.box {
-  height: 400px;
-  width: 600px;
-  background-color: black;
-  h1 {
-    color: white;
-  }
-}
+<style scoped>
+
 </style>

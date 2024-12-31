@@ -1,10 +1,20 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+// 引入 element-plus 插件与样式
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 
-const fun = () => {
-  console.log('hello world')
-}
+// 配置 element-plus 国际化
+// @ts-ignore
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
-fun()
+// 获取应用实例对象
+const app = createApp(App)
+
+app.use(ElementPlus, {
+  locale: zhCn // element-plus 国际化
+})
+
+// 挂载应用
+app.mount('#app')
