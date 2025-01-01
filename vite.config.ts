@@ -6,7 +6,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { viteMockServe } from 'vite-plugin-mock'
 
 // https://vite.dev/config/
-export default defineConfig(({ command })=> {
+export default defineConfig(({ command }) => {
   return {
     plugins: [
       vue(),
