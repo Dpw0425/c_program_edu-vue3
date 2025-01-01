@@ -28,5 +28,16 @@ app.use(globalComponents)
 // 引入模板的全局样式
 import '@/styles/index.scss'
 
+// 测试接口
+import axios from 'axios'
+axios({
+  url: '/api/user/login',
+  method: 'post',
+  data: {
+    username: 'admin',
+    password: '12346'
+  }
+})
+
 // 挂载应用
 app.mount('#app')
