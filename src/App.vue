@@ -1,12 +1,6 @@
 <template>
   <div>
-    <h1>svg 测试</h1>
-    <svg-icon
-      name="notice"
-      color="pink"
-      width="50px"
-      height="50px"
-    ></svg-icon>
+    <h1>scss 测试</h1>
   </div>
 </template>
 
@@ -14,4 +8,10 @@
 
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+  div {
+    h1 {
+      color: $base-color;
+    }
+  }
+</style>
