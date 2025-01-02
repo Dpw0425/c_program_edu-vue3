@@ -69,7 +69,7 @@ interface UserInfoResponse {
 export default [
   // 用户登录接口
   {
-    url: '/api/user/login', // 请求地址
+    url: '/api/v1/user/login', // 请求地址
     method: 'post', // 请求方式
     response: ({
       body,
@@ -88,20 +88,6 @@ export default [
 
       const { token } = checkUser
       return { code: 200, data: { token } }
-    },
-  },
-  {
-    url: '/api/user/info',
-    method: 'get',
-    response: (request: Request): UserInfoResponse => {
-      const token = request.headers.token
-      const checkUser = createUserList().find((item) => item.token === token)
-
-      if (!checkUser) {
-        return { code: 201, data: { message: '获取用户信息失败' } }
-      }
-
-      return { code: 200, data: { checkUser } }
     },
   },
 ]

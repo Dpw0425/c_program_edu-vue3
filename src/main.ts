@@ -22,6 +22,9 @@ import '@/styles/index.scss'
 // 引入路由
 import router from './router'
 
+// 引入仓库
+import pinia from './store'
+
 // 获取应用实例对象
 const app = createApp(App)
 
@@ -31,9 +34,9 @@ app.use(ElementPlus, {
 
 // 安装自定义插件
 app.use(globalComponents)
-
 // 注册路由
 app.use(router)
+app.use(pinia)
 
 // 挂载应用
 app.mount('#app')
