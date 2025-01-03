@@ -4,7 +4,7 @@ import { messageConfig } from 'element-plus'
 interface User {
   user_id: number
   avatar: string
-  username: string
+  email: string
   password: string
   desc: string
   roles: string[]
@@ -20,7 +20,7 @@ function createUserList(): User[] {
       user_id: 1,
       avatar:
         'https://img1.baidu.com/it/u=3001150338,397170470&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=1422',
-      username: 'admin',
+      email: 'admin@qq.com',
       password: '123456',
       desc: '平台管理员',
       roles: ['平台管理员'],
@@ -32,7 +32,7 @@ function createUserList(): User[] {
       user_id: 2,
       avatar:
         'https://pic.rmb.bdstatic.com/bjh/news/57e572cd41520408ebbbe5e3a6fb5b6d.jpeg',
-      username: 'system',
+      email: 'system',
       password: '123456',
       desc: '系统管理员',
       roles: ['系统管理员'],
@@ -74,12 +74,12 @@ export default [
     response: ({
       body,
     }: {
-      body: { username: string; password: string }
+      body: { email: string; password: string }
     }): LoginResponse => {
-      const { username, password } = body
+      const { email, password } = body
       const users = createUserList()
       const checkUser = users.find(
-        (item) => item.username === username && item.password === password,
+        (item) => item.email === email && item.password === password,
       )
 
       if (!checkUser) {

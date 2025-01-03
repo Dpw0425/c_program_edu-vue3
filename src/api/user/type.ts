@@ -1,12 +1,11 @@
 export interface loginForm {
-  username: string
+  email: string
   password: string
   verify_code: string
 }
 
 interface dataType {
   token: string
-
 }
 export interface loginResponseData {
   code: number
