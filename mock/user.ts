@@ -46,9 +46,9 @@ function createUserList(): User[] {
 // 定义请求的响应结构
 interface LoginResponse {
   code: number
-  data: {
-    message?: string
-    token?: string
+  message?: string
+  data?: {
+    token: string
   }
 }
 
@@ -83,7 +83,7 @@ export default [
       )
 
       if (!checkUser) {
-        return { code: 201, data: { message: '账号或密码错误' } }
+        return { code: 201, message: '账号或密码错误' }
       }
 
       const { token } = checkUser

@@ -4,7 +4,12 @@
       <el-col :span="10" :xs="0"></el-col>
       <el-col :span="14" :xs="24">
         <div class="login_box">
-          <el-form class="login_form" :model="loginForm" :rules="rules" ref="loginValidate">
+          <el-form
+            class="login_form"
+            :model="loginForm"
+            :rules="rules"
+            ref="loginValidate"
+          >
             <el-tabs
               v-model="activeTab"
               class="login_tabs"
@@ -24,19 +29,30 @@
                 placeholder="请输入邮箱号"
               />
             </el-form-item>
-            <el-form-item v-if="activeTab === 'loginByEmail'" prop="verify_code">
+            <el-form-item
+              v-if="activeTab === 'loginByEmail'"
+              prop="verify_code"
+            >
               <div class="verify_code">
                 <el-input
                   v-model="loginForm.verify_code"
                   class="verify_code_input"
                   placeholder="请输入验证码"
                 />
-                <el-button class="verify_btn" plain @click="getVerifyCode" :disabled="counting">
+                <el-button
+                  class="verify_btn"
+                  plain
+                  @click="getVerifyCode"
+                  :disabled="counting"
+                >
                   {{ counting ? countdown + ' 秒后重新发送' : '获取验证码' }}
                 </el-button>
               </div>
             </el-form-item>
-            <el-form-item v-if="activeTab === 'loginByPassword'" prop="password">
+            <el-form-item
+              v-if="activeTab === 'loginByPassword'"
+              prop="password"
+            >
               <el-input
                 type="password"
                 :prefix-icon="Lock"
@@ -97,7 +113,7 @@ const login = async () => {
     ElNotification({
       type: 'success',
       message: '欢迎回来!',
-      title: `Hi, ${ getTime() }好!`
+      title: `Hi, ${getTime()}好!`,
     })
     loading.value = false
   } catch (error) {
@@ -112,10 +128,12 @@ const login = async () => {
 const counting = ref(false)
 const countdown = ref(60)
 const getVerifyCode = () => {
-  if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(loginForm.email)) {
+  if (
+    !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(loginForm.email)
+  ) {
     ElNotification({
       type: 'error',
-      message: '请输入正确的邮箱地址'
+      message: '请输入正确的邮箱地址',
     })
     return
   }
@@ -145,17 +163,17 @@ const resetForm = (tab: any) => {
 }
 
 // 表单校验规则
-const rules =  {
+const rules = {
   email: [
-    {required: true, message: '请输入邮箱地址', trigger: 'blur'},
-    {type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']},
+    { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+    {
+      type: 'email',
+      message: '请输入正确的邮箱地址',
+      trigger: ['blur', 'change'],
+    },
   ],
-  password: [
-    {required: true, message: '请输入密码', trigger: 'blur'},
-  ],
-  verify_code: [
-    {required: true, message: '请输入验证码', trigger: 'blur'},
-  ],
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+  verify_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
 }
 </script>
 
