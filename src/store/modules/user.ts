@@ -1,5 +1,5 @@
-import { reqLogin } from '@/api/user'
-import type { loginForm, loginResponseData } from '@/api/user/type'
+import { reqLogin, reqRegister } from '@/api/user'
+import type { loginForm, loginResponseData, registerForm, registerResponseData } from '@/api/user/type'
 import { defineStore } from 'pinia'
 import type { UserState } from './types/type'
 import { GET_TOKEN, SET_TOKEN } from '@/utils/token'
@@ -11,7 +11,7 @@ let useUserStore = defineStore('User', {
     }
   },
   actions: {
-    // 用户登录的方法
+    // 用户登录方法
     async userLogin(data: loginForm) {
       let result: loginResponseData = await reqLogin(data)
       if (result.code == 200) {
@@ -24,6 +24,16 @@ let useUserStore = defineStore('User', {
         return Promise.reject(new Error(result.message))
       }
     },
+
+    // 用户注册方法
+    async userRegister(data: registerForm) {
+      let result: registerResponseData = await reqRegister(data)
+      if (result.code == 200) {
+        // 处理业务
+      } else {
+        return Promise.reject(new Error(result.message))
+      }
+    }
   },
   getters: {},
 })
