@@ -1,5 +1,10 @@
 import { reqLogin, reqRegister } from '@/api/user'
-import type { loginForm, loginResponseData, registerForm, registerResponseData } from '@/api/user/type'
+import type {
+  loginForm,
+  loginResponseData,
+  registerForm,
+  registerResponseData,
+} from '@/api/user/type'
 import { defineStore } from 'pinia'
 import type { UserState } from './types/type'
 import { GET_TOKEN, SET_TOKEN } from '@/utils/token'
@@ -33,7 +38,7 @@ let useUserStore = defineStore('User', {
       } else {
         return Promise.reject(new Error(result.message))
       }
-    }
+    },
   },
   getters: {},
 })

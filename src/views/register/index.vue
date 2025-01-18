@@ -1,42 +1,44 @@
 <template>
-    <div class="register_container">
-        <div class="register_box">
-            <el-form
-              class="register_form"
-              :model="registerForm"
-              :rules="rules"
-              ref="registerValidate"
-            >
-                <el-upload
-                  class="avatar_uploader"
-                  action="#"
-                  :show-file-list="false"
-                  :on-success="uploadSuccess"
-                  :before-upload="beforeUpload"
-                >
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                    <i v-else class="el-icon-plus avatar_uploader_icon"></i>
-                </el-upload>
-            </el-form>
-        </div>
+  <div class="register_container">
+    <div class="register_box">
+      <el-form
+        class="register_form"
+        :model="registerForm"
+        :rules="rules"
+        ref="registerValidate"
+      >
+        <el-upload
+          class="avatar_uploader"
+          action="#"
+          :show-file-list="false"
+          :on-success="uploadSuccess"
+          :before-upload="beforeUpload"
+        >
+          <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+          <i v-else class="el-icon-plus avatar_uploader_icon"></i>
+        </el-upload>
+      </el-form>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { reactive, ref } from 'vue'
 
-const registerForm = reactive({ nickname: '', password: '', avatar: '', email: '', verify_code: '' })
+const registerForm = reactive({
+  nickname: '',
+  password: '',
+  avatar: '',
+  email: '',
+  verify_code: '',
+})
 let imageUrl = ref()
 
 // 上传成功回调
-const uploadSuccess = () => {
-    
-}
+const uploadSuccess = () => {}
 
 // 上传前校验
-const beforeUpload = () => {
-
-}
+const beforeUpload = () => {}
 
 const rules = {
   email: [
@@ -85,37 +87,37 @@ const rules = {
 }
 
 .register_form {
-    color: rgba(0, 0, 0, 0.75);
-    justify-content: center;
-    display: flex;
+  color: rgba(0, 0, 0, 0.75);
+  justify-content: center;
+  display: flex;
 
-    .avatar_uploader {
-        border: 1px dashed #d9d9d9;
-        border-radius: 6px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-        width: 178px;
-        height: 178px;
+  .avatar_uploader {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    width: 178px;
+    height: 178px;
 
-        &:hover {
-            border-color: #409eff;
-        }
-
-        .avatar_uploader_icon {
-            font-size: 28px;
-            color: #8c939d;
-            width: 178px;
-            height: 178px;
-            line-height: 178px;
-            text-align: center;
-        }
-
-        .avatar {
-            width: 178px;
-            height: 178px;
-            display: block;
-        }
+    &:hover {
+      border-color: #409eff;
     }
+
+    .avatar_uploader_icon {
+      font-size: 28px;
+      color: #8c939d;
+      width: 178px;
+      height: 178px;
+      line-height: 178px;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 178px;
+      height: 178px;
+      display: block;
+    }
+  }
 }
 </style>

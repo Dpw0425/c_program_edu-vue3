@@ -1,5 +1,10 @@
 import request from '@/utils/request'
-import type { loginForm, loginResponseData, registerForm, registerResponseData } from './type'
+import type {
+  loginForm,
+  loginResponseData,
+  registerForm,
+  registerResponseData,
+} from './type'
 
 enum API {
   LOGIN_URL = '/user/login',

@@ -22,9 +22,7 @@ export interface registerForm {
   verify_code: string
 }
 
-interface normalData {
-
-}
+interface normalData {}
 
 export interface registerResponseData {
   code: number
