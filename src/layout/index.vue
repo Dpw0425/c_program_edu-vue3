@@ -9,7 +9,11 @@
       <!-- 分割 -->
       <div style="width: 100%; height: 6px"></div>
 
-      <el-menu class="menu_list" text-color="#dddddd" background-color="#34495e">
+      <el-menu
+        class="menu_list"
+        text-color="#dddddd"
+        background-color="#34495e"
+      >
         <Menu></Menu>
       </el-menu>
     </div>

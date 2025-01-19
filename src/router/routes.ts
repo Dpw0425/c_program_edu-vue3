@@ -25,7 +25,7 @@ export const constantRoutes = [
         name: 'Questions',
         meta: {
           title: '题库',
-        }
+        },
       },
       {
         // 比赛中心
@@ -34,7 +34,7 @@ export const constantRoutes = [
         name: 'Competitions',
         meta: {
           title: '比赛中心',
-        }
+        },
       },
       {
         // 文章专栏
@@ -43,7 +43,7 @@ export const constantRoutes = [
         name: 'Articles',
         meta: {
           title: '文章专栏',
-        }
+        },
       },
     ],
   },

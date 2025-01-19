@@ -17,7 +17,7 @@
           <img v-if="imageUrl" :src="imageUrl" class="avatar" />
           <div v-else class="avatar_uploader_icon">
             <el-icon>
-              <Plus/>
+              <Plus />
             </el-icon>
           </div>
         </el-upload>
