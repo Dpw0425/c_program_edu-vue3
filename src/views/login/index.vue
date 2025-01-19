@@ -74,7 +74,7 @@
             </el-form-item>
             <el-form-item>
               <div class="bottom">
-                <el-link href="" type="primary">>>&nbsp;前往注册</el-link>
+                <el-link @click="toRegister" type="primary">>>&nbsp;前往注册</el-link>
               </div>
             </el-form-item>
           </el-form>
@@ -174,6 +174,10 @@ const rules = {
   ],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
   verify_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
+}
+
+const toRegister = () => {
+  $router.push('/register')
 }
 </script>
 
