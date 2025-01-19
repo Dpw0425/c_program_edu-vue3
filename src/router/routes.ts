@@ -1,23 +1,51 @@
-import { messageTypes } from 'element-plus';
-
 export const constantRoutes = [
   {
     // 首页
     path: '/',
     component: () => import('@/layout/index.vue'),
-    name: 'layout',
+    name: 'Layout',
     meta: {
       title: 'layout',
     },
+    redirect: '/home',
     children: [
       {
+        // 首页
         path: '/home',
         component: () => import('@/views/home/index.vue'),
+        name: 'Home',
         meta: {
           title: '首页',
+        },
+      },
+      {
+        // 题库
+        path: '/questions',
+        component: () => import('@/views/questions/index.vue'),
+        name: 'Questions',
+        meta: {
+          title: '题库',
         }
       },
-    ]
+      {
+        // 比赛中心
+        path: '/competitions',
+        component: () => import('@/views/competitions/index.vue'),
+        name: 'Competitions',
+        meta: {
+          title: '比赛中心',
+        }
+      },
+      {
+        // 文章专栏
+        path: '/articles',
+        component: () => import('@/views/articles/index.vue'),
+        name: 'Articles',
+        meta: {
+          title: '文章专栏',
+        }
+      },
+    ],
   },
   {
     // 404
@@ -31,7 +59,7 @@ export const constantRoutes = [
   {
     path: '/:pathMatch(.*)*',
     redirect: '/404',
-    name: 'any',
+    name: 'Any',
     meta: {
       title: '其它路由',
     },
@@ -40,18 +68,18 @@ export const constantRoutes = [
     // 登录
     path: '/login',
     component: () => import('@/views/login/index.vue'),
-    name: 'login', // 命名路由
+    name: 'Login', // 命名路由
     meta: {
       title: '登录',
-    }
+    },
   },
   {
     // 注册
     path: '/register',
     component: () => import('@/views/register/index.vue'),
-    name: 'register',
+    name: 'Register',
     meta: {
       title: '注册',
-    }
+    },
   },
 ]

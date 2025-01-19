@@ -15,7 +15,11 @@
           :before-upload="beforeUpload"
         >
           <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-          <i v-else class="el-icon-plus avatar_uploader_icon"></i>
+          <div v-else class="avatar_uploader_icon">
+            <el-icon>
+              <Plus/>
+            </el-icon>
+          </div>
         </el-upload>
       </el-form>
     </div>
