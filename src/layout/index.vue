@@ -13,12 +13,15 @@
         class="menu_list"
         text-color="#dddddd"
         background-color="#34495e"
+        :default-active="$router.path"
       >
         <Menu></Menu>
       </el-menu>
     </div>
     <!-- 顶部导航 -->
-    <div class="home_tabbar"></div>
+    <div class="home_tabbar">
+      <Tabbar></Tabbar>
+    </div>
     <!-- 内容展示区 -->
     <div class="home_main">
       <Main></Main>
@@ -27,11 +30,18 @@
 </template>
 
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
+
 // 引入左侧菜单栏
 import Menu from './menu/index.vue'
 
 // 引入内容展示区
 import Main from './main/index.vue'
+
+// 引入顶部导航栏
+import Tabbar from './tabbar/index.vue'
+
+let $router = useRoute()
 </script>
 
 <style scoped lang="scss">
@@ -55,7 +65,7 @@ import Main from './main/index.vue'
 
     .menu_list {
       width: 100%;
-      height: 100vh;
+      height: auto;
       align-items: center;
       padding: 0;
       border: none;
@@ -69,6 +79,7 @@ import Main from './main/index.vue'
     width: calc(100% - $base-menu-width);
     height: $base-tabbar-height;
     background-color: $base-tabbar-background-color;
+    color: $base-tabbar-font-color;
   }
 
   .home_main {

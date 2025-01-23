@@ -74,7 +74,9 @@
             </el-form-item>
             <el-form-item>
               <div class="bottom">
-                <el-link @click="toRegister" type="primary">>>&nbsp;前往注册</el-link>
+                <el-link @click="toRegister" type="primary">
+                  >>&nbsp;前往注册
+                </el-link>
               </div>
             </el-form-item>
           </el-form>
