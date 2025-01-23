@@ -46,7 +46,7 @@ export const constantRoutes = [
         name: 'Articles',
         meta: {
           title: '文章专栏',
-          icon: 'article'
+          icon: 'article',
         },
       },
     ],
