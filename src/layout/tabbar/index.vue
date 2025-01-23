@@ -10,9 +10,7 @@
           :to="item.path"
         >
           <span class="breadcrumb_icon">
-            <svg-icon
-              :name="item.meta.icon"
-            ></svg-icon>
+            <svg-icon :name="item.meta.icon"></svg-icon>
           </span>
           <span>{{ item.meta.title }}</span>
         </el-breadcrumb-item>
