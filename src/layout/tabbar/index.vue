@@ -12,7 +12,6 @@
           <span class="breadcrumb_icon">
             <svg-icon
               :name="item.meta.icon"
-              style="margin-top: -1px"
             ></svg-icon>
           </span>
           <span>{{ item.meta.title }}</span>
