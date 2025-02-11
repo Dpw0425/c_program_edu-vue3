@@ -62,7 +62,12 @@
 
     <!-- 右侧用户中心 -->
     <div class="tabbar_right">
-      <el-button size="small" icon="Refresh" circle="true" @click="refresh"></el-button>
+      <el-button
+        size="small"
+        icon="Refresh"
+        circle="true"
+        @click="refresh"
+      ></el-button>
       <el-button size="small" icon="FullScreen" circle="true"></el-button>
       <el-button size="small" icon="setting" circle="true"></el-button>
       <el-icon style="width: 24px; height: 24px; margin: 0 10px">

@@ -9,18 +9,21 @@
 </template>
 
 <script setup lang="ts">
-import { watch, ref, nextTick } from 'vue';
-import useLayoutSettingStore from '@/store/modules/setting';
+import { watch, ref, nextTick } from 'vue'
+import useLayoutSettingStore from '@/store/modules/setting'
 let layoutSettingStore = useLayoutSettingStore()
 
 let flag = ref(true)
 
-watch(() => layoutSettingStore.refresh, () => {
-  flag.value = false
-  nextTick(() => {
-    flag.value = true
-  })
-})
+watch(
+  () => layoutSettingStore.refresh,
+  () => {
+    flag.value = false
+    nextTick(() => {
+      flag.value = true
+    })
+  },
+)
 </script>
 
 <style scoped>
