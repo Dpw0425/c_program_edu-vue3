@@ -3,8 +3,12 @@
     <!-- 左侧导航栏 -->
     <div class="tabbar_left">
       <el-breadcrumb separator-icon="ArrowRight">
-        <el-breadcrumb-item v-for="(item, index) in $router.matched" :key="index" v-show="item.meta.title != 'layout'"
-          :to="item.path">
+        <el-breadcrumb-item
+          v-for="(item, index) in $router.matched"
+          :key="index"
+          v-show="item.meta.title != 'layout'"
+          :to="item.path"
+        >
           <span class="breadcrumb_icon">
             <svg-icon :name="item.meta.icon"></svg-icon>
           </span>
@@ -22,13 +26,34 @@
         @click="focusInput"
         ref="search_box"
       >
-        <div class="input_box" :class="{ active: isFocused }" @click="focusInput" ref="input_box">
-          <input ref="inputRef" v-model="input" class="input_area" type="text" autocomplete="off" accesskey="s"
-            maxlength="100" x-webkit-speech x-webkit-grammar="builtin:translate" placeholder="搜索内容"
-            @focus="inputFocused = true" @blur="inputFocused = false" />
+        <div
+          class="input_box"
+          :class="{ active: isFocused }"
+          @click="focusInput"
+          ref="input_box"
+        >
+          <input
+            ref="inputRef"
+            v-model="input"
+            class="input_area"
+            type="text"
+            autocomplete="off"
+            accesskey="s"
+            maxlength="100"
+            x-webkit-speech
+            x-webkit-grammar="builtin:translate"
+            placeholder="搜索内容"
+            @focus="inputFocused = true"
+            @blur="inputFocused = false"
+          />
         </div>
         <div class="search_icon">
-          <svg-icon name="search" width="22px" height="22px" color="#515151"></svg-icon>
+          <svg-icon
+            name="search"
+            width="22px"
+            height="22px"
+            color="#515151"
+          ></svg-icon>
         </div>
       </form>
 
@@ -65,9 +90,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { onClickOutside } from '@vueuse/core';
+import { onClickOutside } from '@vueuse/core'
 
 let $router = useRoute()
 
@@ -137,9 +162,9 @@ onClickOutside(search_box, () => {
     box-sizing: border-box;
     height: 40px;
     background-color: $base-search-box-background-color;
-    opacity: .9;
-    transition: background-color .3s;
-    transition: border .3s;
+    opacity: 0.9;
+    transition: background-color 0.3s;
+    transition: border 0.3s;
 
     &:hover {
       background-color: #ffffff;
@@ -174,11 +199,11 @@ onClickOutside(search_box, () => {
         border: none;
         background-color: transparent;
         box-shadow: none;
-        color: #61666D;
+        color: #61666d;
         font-size: 14px;
         line-height: 20px;
         outline: none;
-        transition: color .3s;
+        transition: color 0.3s;
 
         &:focus {
           color: #18191c;
@@ -201,7 +226,7 @@ onClickOutside(search_box, () => {
       border-radius: 6px;
       line-height: 32px;
       cursor: pointer;
-      transition: background-color .3s;
+      transition: background-color 0.3s;
 
       &:hover {
         background-color: #e6e7e9;
