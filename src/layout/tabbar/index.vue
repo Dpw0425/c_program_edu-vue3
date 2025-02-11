@@ -3,18 +3,36 @@
     <!-- 左侧导航栏 -->
     <div class="tabbar_left">
       <el-breadcrumb separator-icon="ArrowRight">
-        <el-breadcrumb-item
-          v-for="(item, index) in $router.matched"
-          :key="index"
-          v-show="item.meta.title != 'layout'"
-          :to="item.path"
-        >
+        <el-breadcrumb-item v-for="(item, index) in $router.matched" :key="index" v-show="item.meta.title != 'layout'"
+          :to="item.path">
           <span class="breadcrumb_icon">
             <svg-icon :name="item.meta.icon"></svg-icon>
           </span>
           <span>{{ item.meta.title }}</span>
         </el-breadcrumb-item>
       </el-breadcrumb>
+    </div>
+
+    <!-- 中部搜索栏 -->
+    <div class="tabbar_middle">
+      <form
+        action=""
+        class="search_box"
+        :class="{ active: isFocused }"
+        @click="focusInput"
+        ref="search_box"
+      >
+        <div class="input_box" :class="{ active: isFocused }" @click="focusInput" ref="input_box">
+          <input ref="inputRef" v-model="input" class="input_area" type="text" autocomplete="off" accesskey="s"
+            maxlength="100" x-webkit-speech x-webkit-grammar="builtin:translate" placeholder="搜索内容"
+            @focus="inputFocused = true" @blur="inputFocused = false" />
+        </div>
+        <div class="search_icon">
+          <svg-icon name="search" width="22px" height="22px" color="#515151"></svg-icon>
+        </div>
+      </form>
+
+      <div class="search-panel"></div>
     </div>
 
     <!-- 右侧用户中心 -->
@@ -47,9 +65,32 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useRoute } from 'vue-router'
+import { onClickOutside } from '@vueuse/core';
 
 let $router = useRoute()
+
+let input = ref('')
+
+// 搜索栏样式监听器
+let isFocused = ref(false)
+let inputFocused = ref(false)
+const inputRef = ref<HTMLInputElement | null>(null)
+const input_box = ref(null)
+const search_box = ref(null)
+const focusInput = () => {
+  isFocused.value = true
+  if (inputRef.value) {
+    inputRef.value.focus()
+  }
+}
+onClickOutside(input_box, () => {
+  isFocused.value = false
+})
+onClickOutside(search_box, () => {
+  isFocused.value = false
+})
 </script>
 
 <style scoped lang="scss">
@@ -58,6 +99,8 @@ let $router = useRoute()
   height: 100%;
   display: flex;
   justify-content: space-between;
+  position: absolute;
+  align-items: center;
 
   .tabbar_left {
     display: flex;
@@ -71,6 +114,97 @@ let $router = useRoute()
       svg {
         max-width: 100%;
         max-height: 100%;
+      }
+    }
+  }
+
+  .tabbar_middle {
+    position: relative;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .search_box {
+    display: flex;
+    align-items: center;
+    padding: 0 48px 0 4px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    line-height: 38px;
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+    box-sizing: border-box;
+    height: 40px;
+    background-color: $base-search-box-background-color;
+    opacity: .9;
+    transition: background-color .3s;
+    transition: border .3s;
+
+    &:hover {
+      background-color: #ffffff;
+      border: 1px solid #e3e5e7;
+    }
+
+    &.active {
+      background-color: #ffffff;
+      border: 1px solid #e3e5e7;
+    }
+
+    .input_box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      padding: 0 0 0 8px;
+      width: 100%;
+      height: 32px;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      box-sizing: border-box;
+      transition: background-color;
+
+      &.active {
+        background-color: #e6e7e9;
+      }
+
+      .input_area {
+        flex: 1;
+        overflow: hidden;
+        border: none;
+        background-color: transparent;
+        box-shadow: none;
+        color: #61666D;
+        font-size: 14px;
+        line-height: 20px;
+        outline: none;
+        transition: color .3s;
+
+        &:focus {
+          color: #18191c;
+        }
+      }
+    }
+
+    .search_icon {
+      position: absolute;
+      top: 3px;
+      right: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 6px;
+      line-height: 32px;
+      cursor: pointer;
+      transition: background-color .3s;
+
+      &:hover {
+        background-color: #e6e7e9;
       }
     }
   }
