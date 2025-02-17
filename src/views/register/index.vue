@@ -31,15 +31,30 @@
         </el-form-item>
         <el-form-item>
           <label>验证码</label>
-          <el-input placeholder="图片验证码" style="margin-bottom: 3px;" />
+          <el-input placeholder="图片验证码" style="margin-bottom: 3px" />
           <div class="verify_code">
-            <el-input v-model="registerForm.verify_code" placeholder="邮箱验证码" />
-            <el-button class="verify_btn" type="primary" plain @click="getVerifyCode" :disabled="counting">{{ counting ? countdown + ' 秒后重新发送' : '获取验证码' }}</el-button>
+            <el-input
+              v-model="registerForm.verify_code"
+              placeholder="邮箱验证码"
+            />
+            <el-button
+              class="verify_btn"
+              type="primary"
+              plain
+              @click="getVerifyCode"
+              :disabled="counting"
+            >
+              {{ counting ? countdown + ' 秒后重新发送' : '获取验证码' }}
+            </el-button>
           </div>
         </el-form-item>
         <el-form-item>
           <label>密码</label>
-          <el-input v-model="registerForm.password" placeholder="密码" style="margin-bottom: 3px;" />
+          <el-input
+            v-model="registerForm.password"
+            placeholder="密码"
+            style="margin-bottom: 3px"
+          />
           <el-input v-model="registerForm.password" placeholder="请再次输入" />
         </el-form-item>
         <el-form-item>
