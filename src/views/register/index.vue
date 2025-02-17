@@ -21,6 +21,30 @@
             </el-icon>
           </div>
         </el-upload>
+        <el-form-item>
+          <label>昵称</label>
+          <el-input v-model="registerForm.nickname" placeholder="昵称" />
+        </el-form-item>
+        <el-form-item>
+          <label>邮箱号</label>
+          <el-input v-model="registerForm.email" placeholder="邮箱号" />
+        </el-form-item>
+        <el-form-item>
+          <label>验证码</label>
+          <el-input placeholder="图片验证码" style="margin-bottom: 3px;" />
+          <div class="verify_code">
+            <el-input v-model="registerForm.verify_code" placeholder="邮箱验证码" />
+            <el-button class="verify_btn" type="primary" plain @click="getVerifyCode" :disabled="counting">{{ counting ? countdown + ' 秒后重新发送' : '获取验证码' }}</el-button>
+          </div>
+        </el-form-item>
+        <el-form-item>
+          <label>密码</label>
+          <el-input v-model="registerForm.password" placeholder="密码" style="margin-bottom: 3px;" />
+          <el-input v-model="registerForm.password" placeholder="请再次输入" />
+        </el-form-item>
+        <el-form-item>
+          <el-button>Default</el-button>
+        </el-form-item>
       </el-form>
     </div>
   </div>
@@ -28,6 +52,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+import { ElNotification } from 'element-plus'
 
 const registerForm = reactive({
   nickname: '',
@@ -43,6 +68,34 @@ const uploadSuccess = () => {}
 
 // 上传前校验
 const beforeUpload = () => {}
+
+const counting = ref(false)
+const countdown = ref(60)
+const getVerifyCode = () => {
+  if (
+    !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(registerForm.email)
+  ) {
+    ElNotification({
+      type: 'error',
+      message: '请输入正确的邮箱地址',
+    })
+    return
+  }
+
+  // TODO: 发送验证码
+
+  counting.value = true
+  countdown.value = 60
+
+  const timer = setInterval(() => {
+    if (countdown.value > 0) {
+      countdown.value--
+    } else {
+      clearInterval(timer)
+      counting.value = false // 结束倒计时
+    }
+  }, 1000)
+}
 
 const rules = {
   email: [
@@ -86,42 +139,71 @@ const rules = {
   margin: 0 auto;
 
   position: relative;
-  width: 40%;
-  top: 20vh;
-}
-
-.register_form {
-  color: rgba(0, 0, 0, 0.75);
-  justify-content: center;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
 
-  .avatar_uploader {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    width: 178px;
-    height: 178px;
+  .register_form {
+    color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    &:hover {
-      border-color: #409eff;
-    }
-
-    .avatar_uploader_icon {
-      font-size: 28px;
-      color: #8c939d;
+    .avatar_uploader {
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
       width: 178px;
       height: 178px;
-      line-height: 178px;
-      text-align: center;
+      margin-bottom: 6px;
+
+      &:hover {
+        border-color: #409eff;
+      }
+
+      .avatar_uploader_icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+      }
+
+      .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+      }
     }
 
-    .avatar {
-      width: 178px;
-      height: 178px;
-      display: block;
+    .el-form-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 85%;
+      margin-bottom: 6px;
+    }
+
+    .label {
+      margin-bottom: 6px;
+      font-size: 16px;
+      line-height: 1.5;
+      color: rgba(0, 0, 0, 0.75);
     }
   }
+}
+
+.verify_code {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
 }
 </style>
