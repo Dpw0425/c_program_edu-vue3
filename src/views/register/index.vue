@@ -9,9 +9,7 @@
       >
         <el-form-item>
           <div class="top">
-            <el-link @click="toLogin" type="primary">
-              <<&nbsp;返回登录
-            </el-link>
+            <el-link @click="toLogin" type="primary"><<&nbsp;返回登录</el-link>
           </div>
         </el-form-item>
         <el-upload
@@ -30,7 +28,11 @@
         </el-upload>
         <el-form-item prop="nickname">
           <label>昵称</label>
-          <el-input v-model="registerForm.nickname" placeholder="昵称" maxlength="10" />
+          <el-input
+            v-model="registerForm.nickname"
+            placeholder="昵称"
+            maxlength="10"
+          />
         </el-form-item>
         <el-form-item prop="email">
           <label>邮箱号</label>
@@ -60,17 +62,25 @@
         </el-form-item>
         <el-form-item prop="password">
           <label>密码</label>
-          <el-input
-            v-model="registerForm.password"
-            placeholder="密码"
-          />
+          <el-input v-model="registerForm.password" placeholder="密码" />
         </el-form-item>
         <el-form-item prop="confirmPassword">
           <label>确认密码</label>
-          <el-input v-model="registerForm.confirmPassword" placeholder="请再次输入" />
+          <el-input
+            v-model="registerForm.confirmPassword"
+            placeholder="请再次输入"
+          />
         </el-form-item>
-        <el-form-item style="margin-top: 10px;">
-          <el-button class="register_btn" type="primary" size="default" :loading="loading" @click="register">注册</el-button>
+        <el-form-item style="margin-top: 10px">
+          <el-button
+            class="register_btn"
+            type="primary"
+            size="default"
+            :loading="loading"
+            @click="register"
+          >
+            注册
+          </el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -180,9 +190,7 @@ const rules = {
     { required: true, message: '请确认密码', trigger: 'blur' },
     { validator: validateConfirmPassword, trigger: ['blur', 'change'] },
   ],
-  verify_code: [
-    { required: true, message: '请输入验证码', trigger: 'blur' },
-  ],
+  verify_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
 }
 </script>
 
