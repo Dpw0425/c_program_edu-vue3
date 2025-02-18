@@ -43,9 +43,9 @@
                   class="verify_btn"
                   plain
                   @click="getVerifyCode"
-                  :disabled="counting"
+                  :disabled="countdownStore.isDisabled"
                 >
-                  {{ counting ? countdown + ' 秒后重新发送' : '获取验证码' }}
+                  {{ countdownStore.isDisabled ? countdownStore.remainingSeconds + ' 秒后重新发送' : '获取验证码' }}
                 </el-button>
               </div>
             </el-form-item>
@@ -88,6 +88,7 @@
 
 <script setup lang="ts">
 import useUserStore from '@/store/modules/user'
+import useCountdownStore from '@/store/common/verify'
 import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -127,8 +128,7 @@ const login = async () => {
   }
 }
 
-const counting = ref(false)
-const countdown = ref(60)
+const countdownStore = useCountdownStore()
 const getVerifyCode = () => {
   if (
     !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(loginForm.email)
@@ -140,19 +140,9 @@ const getVerifyCode = () => {
     return
   }
 
+  countdownStore.startCountdown()
+
   // TODO: 发送验证码
-
-  counting.value = true
-  countdown.value = 60
-
-  const timer = setInterval(() => {
-    if (countdown.value > 0) {
-      countdown.value--
-    } else {
-      clearInterval(timer)
-      counting.value = false // 结束倒计时
-    }
-  }, 1000)
 }
 
 const resetForm = (tab: any) => {

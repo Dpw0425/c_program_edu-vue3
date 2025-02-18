@@ -42,9 +42,9 @@
               type="primary"
               plain
               @click="getVerifyCode"
-              :disabled="counting"
+              :disabled="countdownStore.isDisabled"
             >
-              {{ counting ? countdown + ' 秒后重新发送' : '获取验证码' }}
+              {{ countdownStore.isDisabled ? countdownStore.remainingSeconds + ' 秒后重新发送' : '获取验证码' }}
             </el-button>
           </div>
         </el-form-item>
@@ -68,6 +68,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { ElNotification } from 'element-plus'
+import useCountdownStore from '@/store/common/verify'
 
 const registerForm = reactive({
   nickname: '',
@@ -84,8 +85,8 @@ const uploadSuccess = () => {}
 // 上传前校验
 const beforeUpload = () => {}
 
-const counting = ref(false)
-const countdown = ref(60)
+// 获取验证码
+const countdownStore = useCountdownStore()
 const getVerifyCode = () => {
   if (
     !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(registerForm.email)
@@ -97,19 +98,9 @@ const getVerifyCode = () => {
     return
   }
 
+  countdownStore.startCountdown()
+
   // TODO: 发送验证码
-
-  counting.value = true
-  countdown.value = 60
-
-  const timer = setInterval(() => {
-    if (countdown.value > 0) {
-      countdown.value--
-    } else {
-      clearInterval(timer)
-      counting.value = false // 结束倒计时
-    }
-  }, 1000)
 }
 
 const rules = {
