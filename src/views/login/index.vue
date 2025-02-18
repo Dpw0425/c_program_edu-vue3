@@ -45,7 +45,11 @@
                   @click="getVerifyCode"
                   :disabled="countdownStore.isDisabled"
                 >
-                  {{ countdownStore.isDisabled ? countdownStore.remainingSeconds + ' 秒后重新发送' : '获取验证码' }}
+                  {{
+                    countdownStore.isDisabled
+                      ? countdownStore.remainingSeconds + ' 秒后重新发送'
+                      : '获取验证码'
+                  }}
                 </el-button>
               </div>
             </el-form-item>
