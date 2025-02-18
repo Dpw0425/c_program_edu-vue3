@@ -1,3 +1,5 @@
 export interface UserState {
-  token: string | null
+  token: string | null,
+  username: string,
+  avatar: string
 }

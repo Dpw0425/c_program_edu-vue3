@@ -1,4 +1,4 @@
-import { reqLogin, reqRegister } from '@/api/user'
+import { reqLogin, reqRegister, reqUserInfo } from '@/api/user'
 import type {
   loginForm,
   loginResponseData,
@@ -13,6 +13,8 @@ let useUserStore = defineStore('User', {
   state: (): UserState => {
     return {
       token: GET_TOKEN(),
+      username: '',
+      avatar: '',
     }
   },
   actions: {
@@ -39,6 +41,17 @@ let useUserStore = defineStore('User', {
         return Promise.reject(new Error(result.message))
       }
     },
+
+    // 获取用户信息
+    async userInfo() {
+      let result = await reqUserInfo()
+      if (result.code == 200) {
+        this.username = result.data.checkUser.username
+        this.avatar = result.data.checkUser.avatar
+      } else {
+        
+      }
+    }
   },
   getters: {},
 })

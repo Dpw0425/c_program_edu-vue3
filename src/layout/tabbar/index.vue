@@ -70,12 +70,10 @@
       ></el-button>
       <el-button size="small" icon="FullScreen" circle="true"></el-button>
       <el-button size="small" icon="setting" circle="true"></el-button>
-      <el-icon style="width: 24px; height: 24px; margin: 0 10px">
-        <User />
-      </el-icon>
+      <img :src="userStore.avatar" style="width: 24px; height: 24px; margin: 0 10px; border-radius: 50%;">
       <el-dropdown>
         <span class="el-dropdown-link">
-          admin
+          {{ userStore.username }}
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
@@ -99,6 +97,7 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { onClickOutside } from '@vueuse/core'
 import useLayoutSettingStore from '@/store/modules/setting'
+import useUserStore from '@/store/modules/user'
 
 let $router = useRoute()
 
@@ -127,6 +126,8 @@ let layoutSettingStore = useLayoutSettingStore()
 const refresh = () => {
   layoutSettingStore.refresh = !layoutSettingStore.refresh
 }
+
+let userStore = useUserStore()
 </script>
 
 <style scoped lang="scss">

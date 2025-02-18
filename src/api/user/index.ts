@@ -4,6 +4,7 @@ import type {
   loginResponseData,
   registerForm,
   registerResponseData,
+  userInfoResponseData,
 } from './type'
 
 enum API {
@@ -17,3 +18,6 @@ export const reqLogin = (data: loginForm) =>
 
 export const reqRegister = (data: registerForm) =>
   request.post<any, registerResponseData>(API.REGISTER_URL, data)
+
+export const reqUserInfo = () => 
+  request.get<any, userInfoResponseData>(API.USERINFO_URL)

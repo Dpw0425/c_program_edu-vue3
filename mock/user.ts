@@ -3,6 +3,7 @@ import { messageConfig } from 'element-plus'
 // 定义用户结构的接口
 interface User {
   user_id: number
+  username: string
   avatar: string
   email: string
   password: string
@@ -21,6 +22,7 @@ function createUserList(): User[] {
       avatar:
         'https://img1.baidu.com/it/u=3001150338,397170470&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=1422',
       email: 'admin@qq.com',
+      username: '666',
       password: '123456',
       desc: '平台管理员',
       roles: ['平台管理员'],
@@ -30,6 +32,7 @@ function createUserList(): User[] {
     },
     {
       user_id: 2,
+      username: 'admin',
       avatar:
         'https://pic.rmb.bdstatic.com/bjh/news/57e572cd41520408ebbbe5e3a6fb5b6d.jpeg',
       email: 'system',
@@ -90,4 +93,17 @@ export default [
       return { code: 200, data: { token } }
     },
   },
+  {
+    url: '/api/v1/user/info',
+    method: 'get',
+    response: (request) => {
+      const token = request.headers.token
+      const checkUser = createUserList().find((item) => item.token === token)
+      if (!checkUser) {
+        return { code: 201, data: { message: '获取用户信息失败！' } }
+      }
+
+      return { code: 200, data: { checkUser } }
+    }
+  }
 ]

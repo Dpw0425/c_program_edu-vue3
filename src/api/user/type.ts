@@ -30,3 +30,16 @@ export interface registerResponseData {
   data?: normalData
   error_type?: string
 }
+
+interface userInfo {
+  user_id: number
+  avatar: string
+  username: string
+}
+interface user {
+  checkUser: userInfo
+}
+export interface userInfoResponseData {
+  code: number
+  data: user
+}
