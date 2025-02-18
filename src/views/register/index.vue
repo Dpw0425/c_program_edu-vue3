@@ -7,6 +7,13 @@
         :rules="rules"
         ref="registerValidate"
       >
+        <el-form-item>
+          <div class="top">
+            <el-link @click="toLogin" type="primary">
+              <<&nbsp;返回登录
+            </el-link>
+          </div>
+        </el-form-item>
         <el-upload
           class="avatar_uploader"
           action="#"
@@ -21,17 +28,16 @@
             </el-icon>
           </div>
         </el-upload>
-        <el-form-item>
+        <el-form-item prop="nickname">
           <label>昵称</label>
-          <el-input v-model="registerForm.nickname" placeholder="昵称" />
+          <el-input v-model="registerForm.nickname" placeholder="昵称" maxlength="10" />
         </el-form-item>
-        <el-form-item>
+        <el-form-item prop="email">
           <label>邮箱号</label>
           <el-input v-model="registerForm.email" placeholder="邮箱号" />
         </el-form-item>
-        <el-form-item>
-          <label>验证码</label>
-          <el-input placeholder="图片验证码" style="margin-bottom: 3px" />
+        <el-form-item prop="verify_code">
+          <label>邮箱验证码</label>
           <div class="verify_code">
             <el-input
               v-model="registerForm.verify_code"
@@ -52,17 +58,19 @@
             </el-button>
           </div>
         </el-form-item>
-        <el-form-item>
+        <el-form-item prop="password">
           <label>密码</label>
           <el-input
             v-model="registerForm.password"
             placeholder="密码"
-            style="margin-bottom: 3px"
           />
-          <el-input v-model="registerForm.password" placeholder="请再次输入" />
         </el-form-item>
-        <el-form-item>
-          <el-button>Default</el-button>
+        <el-form-item prop="confirmPassword">
+          <label>确认密码</label>
+          <el-input v-model="registerForm.confirmPassword" placeholder="请再次输入" />
+        </el-form-item>
+        <el-form-item style="margin-top: 10px;">
+          <el-button class="register_btn" type="primary" size="default" :loading="loading" @click="register">注册</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -73,15 +81,26 @@
 import { reactive, ref } from 'vue'
 import { ElNotification } from 'element-plus'
 import useCountdownStore from '@/store/common/verify'
+import useUserStore from '@/store/modules/user'
+import { useRouter } from 'vue-router'
 
 const registerForm = reactive({
   nickname: '',
   password: '',
+  confirmPassword: '',
   avatar: '',
   email: '',
   verify_code: '',
 })
 let imageUrl = ref()
+let registerValidate = ref()
+
+let userStore = useUserStore()
+let $router = useRouter()
+
+const toLogin = () => {
+  $router.push('/login')
+}
 
 // 上传成功回调
 const uploadSuccess = () => {}
@@ -107,7 +126,44 @@ const getVerifyCode = () => {
   // TODO: 发送验证码
 }
 
+const loading = ref(false)
+const register = async () => {
+  // 表单校验
+  await registerValidate.value.validate()
+
+  loading.value = true
+
+  try {
+    await userStore.userRegister(registerForm)
+    $router.push('/login')
+    ElNotification({
+      type: 'success',
+      message: '注册成功!',
+      title: `恭喜您`,
+    })
+    loading.value = false
+  } catch (error) {
+    ElNotification({
+      type: 'error',
+      message: (error as Error).message,
+    })
+  }
+}
+
+// @ts-ignore
+const validateConfirmPassword = (rules, value, callback) => {
+  if (value !== registerForm.password) {
+    callback(new Error('两次输入不一致'))
+  } else {
+    callback()
+  }
+}
 const rules = {
+  nickname: [
+    { required: true, message: '请输入昵称', trigger: 'blur' },
+    { min: 2, message: '昵称不得少于 2 个字符', trigger: 'blur' },
+    { max: 8, message: '昵称最多为 8 个字符', trigger: ['blur', 'change'] },
+  ],
   email: [
     { required: true, message: '请输入邮箱地址', trigger: 'blur' },
     {
@@ -115,6 +171,17 @@ const rules = {
       message: '请输入正确的邮箱地址',
       trigger: ['blur', 'change'],
     },
+  ],
+  password: [
+    { required: true, message: '请设置密码', trigger: 'blur' },
+    { min: 6, message: '密码长度最少为 6 个字符', trigger: 'blur' },
+  ],
+  confirmPassword: [
+    { required: true, message: '请确认密码', trigger: 'blur' },
+    { validator: validateConfirmPassword, trigger: ['blur', 'change'] },
+  ],
+  verify_code: [
+    { required: true, message: '请输入验证码', trigger: 'blur' },
   ],
 }
 </script>
@@ -146,6 +213,7 @@ const rules = {
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   padding: 20px;
   max-width: 400px;
+  max-height: 647px;
   margin: 0 auto;
 
   position: relative;
@@ -153,6 +221,19 @@ const rules = {
   flex-direction: column;
   align-items: center;
   width: 40%;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: Transparent Transparent;
 
   .register_form {
     color: rgba(0, 0, 0, 0.75);
@@ -198,12 +279,12 @@ const rules = {
       align-items: center;
       justify-content: center;
       width: 85%;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
     }
 
     .label {
       margin-bottom: 6px;
-      font-size: 16px;
+      font-size: 18px;
       line-height: 1.5;
       color: rgba(0, 0, 0, 0.75);
     }
@@ -215,5 +296,15 @@ const rules = {
   height: auto;
   display: flex;
   align-items: center;
+}
+
+.register_btn {
+  margin-top: 6px;
+  width: 100%;
+}
+
+.top {
+  margin-left: -17px;
+  margin-top: -7px;
 }
 </style>
