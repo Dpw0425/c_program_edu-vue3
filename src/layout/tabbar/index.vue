@@ -70,7 +70,10 @@
       ></el-button>
       <el-button size="small" icon="FullScreen" circle="true"></el-button>
       <el-button size="small" icon="setting" circle="true"></el-button>
-      <img :src="userStore.avatar" style="width: 24px; height: 24px; margin: 0 10px; border-radius: 50%;">
+      <img
+        :src="userStore.avatar"
+        style="width: 24px; height: 24px; margin: 0 10px; border-radius: 50%"
+      />
       <el-dropdown>
         <span class="el-dropdown-link">
           {{ userStore.username }}

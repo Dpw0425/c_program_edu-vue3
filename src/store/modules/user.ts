@@ -49,9 +49,8 @@ let useUserStore = defineStore('User', {
         this.username = result.data.checkUser.username
         this.avatar = result.data.checkUser.avatar
       } else {
-        
       }
-    }
+    },
   },
   getters: {},
 })
