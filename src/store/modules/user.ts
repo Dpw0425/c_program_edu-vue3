@@ -59,7 +59,7 @@ let useUserStore = defineStore('User', {
       this.avatar = ''
 
       REMOVE_TOKEN()
-    }
+    },
   },
   getters: {},
 })
