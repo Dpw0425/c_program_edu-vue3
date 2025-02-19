@@ -62,11 +62,12 @@
         </el-form-item>
         <el-form-item prop="password">
           <label>密码</label>
-          <el-input v-model="registerForm.password" placeholder="密码" />
+          <el-input type="password" v-model="registerForm.password" placeholder="密码" />
         </el-form-item>
         <el-form-item prop="confirmPassword">
           <label>确认密码</label>
           <el-input
+            type="password"
             v-model="registerForm.confirmPassword"
             placeholder="请再次输入"
           />

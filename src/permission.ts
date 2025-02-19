@@ -10,6 +10,7 @@ import useUserStore from './store/modules/user'
 let userStore = useUserStore(pinia)
 
 const publicPaths = [
+  '/register',
   '/login',
   '/home',
   '/questions',
