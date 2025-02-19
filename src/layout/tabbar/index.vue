@@ -83,11 +83,7 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>Action 1</el-dropdown-item>
-            <el-dropdown-item>Action 2</el-dropdown-item>
-            <el-dropdown-item>Action 3</el-dropdown-item>
-            <el-dropdown-item disabled>Action 4</el-dropdown-item>
-            <el-dropdown-item divided>Action 5</el-dropdown-item>
+            <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -131,6 +127,14 @@ const refresh = () => {
 }
 
 let userStore = useUserStore()
+
+const logout = () => {
+  // TODO: 发送请求销毁 token
+
+  userStore.userLogout()
+  // 重新登录时的重定向, 使用户重新登录后回到之前浏览的页面
+  // $router.push({ path: '/login', query: { redirect: $route.path } })
+}
 </script>
 
 <style scoped lang="scss">

@@ -95,7 +95,7 @@ import useUserStore from '@/store/modules/user'
 import useCountdownStore from '@/store/common/verify'
 import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
 
@@ -104,6 +104,7 @@ const loading = ref(false)
 
 let userStore = useUserStore()
 let $router = useRouter()
+let $route = useRoute()
 
 const loginForm = reactive({ email: '', password: '', verify_code: '' })
 let loginValidate = ref()
@@ -116,7 +117,10 @@ const login = async () => {
 
   try {
     await userStore.userLogin(loginForm)
-    $router.push('/')
+
+    let redirect: any = $route.query.redirect
+    $router.push({ path: redirect || '/' })
+
     ElNotification({
       type: 'success',
       message: '欢迎回来!',

@@ -7,7 +7,7 @@ import type {
 } from '@/api/user/type'
 import { defineStore } from 'pinia'
 import type { UserState } from './types/type'
-import { GET_TOKEN, SET_TOKEN } from '@/utils/token'
+import { GET_TOKEN, REMOVE_TOKEN, SET_TOKEN } from '@/utils/token'
 
 let useUserStore = defineStore('User', {
   state: (): UserState => {
@@ -51,6 +51,15 @@ let useUserStore = defineStore('User', {
       } else {
       }
     },
+
+    // 退出登录
+    userLogout() {
+      this.token = ''
+      this.username = ''
+      this.avatar = ''
+
+      REMOVE_TOKEN()
+    }
   },
   getters: {},
 })
