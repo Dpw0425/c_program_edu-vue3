@@ -70,22 +70,19 @@
       ></el-button>
       <el-button size="small" icon="FullScreen" circle="true"></el-button>
       <el-button size="small" icon="setting" circle="true"></el-button>
-      <img
-        :src="userStore.avatar"
-        style="width: 24px; height: 24px; margin: 0 10px; border-radius: 50%"
-      />
-      <el-dropdown>
-        <span class="el-dropdown-link">
-          {{ userStore.nick_name }}
-          <el-icon class="el-icon--right">
-            <arrow-down />
-          </el-icon>
+      <el-dropdown style="margin-right: 30px;">
+        <span class="el-dropdown-link" style="display: flex; align-items: center;">
+          <img v-if="userStore.user_id == 0" src="@/assets/images/login.jpg" style="width: 38px; height: 38px; margin: 0 10px; border-radius: 50%">
+          <img
+            v-else
+            :src="userStore.avatar"
+            style="width: 38px; height: 38px; margin: 0 10px; border-radius: 50%"
+          />
+          <span style="display: flex; align-items: center;">{{ userStore.nick_name }}</span>
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item v-if="userStore.user_id == 0" @click="toLogin">
-              前往登录
-            </el-dropdown-item>
+            <el-dropdown-item v-if="userStore.user_id == 0" @click="toLogin">前往登录</el-dropdown-item>
             <el-dropdown-item v-else @click="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -273,5 +270,17 @@ const logout = async () => {
     display: flex;
     align-items: center;
   }
+}
+
+.el-dropdown .el-dropdown-link {
+  border: none;
+}
+
+.el-dropdown .el-dropdown-link:focus {
+  outline: none;
+}
+
+.el-dropdown .el-dropdown-link:hover {
+  border: none;
 }
 </style>
