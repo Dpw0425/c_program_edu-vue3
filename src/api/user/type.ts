@@ -48,3 +48,11 @@ export interface userInfoResponseData {
   data?: userInfo
   error_type?: string
 }
+
+// logout
+export interface logoutResponseData {
+  code: number
+  message: string
+  data?: normalData
+  error_type?: string
+}

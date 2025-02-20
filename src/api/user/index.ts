@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import type { loginForm, loginResponseData, userInfoResponseData } from './type'
+import type { loginForm, loginResponseData, logoutResponseData, userInfoResponseData } from './type'
 
 const USER_API = '/user'
 
@@ -23,4 +23,5 @@ export const reqUserInfo = () =>
   request.get<any, userInfoResponseData>(API.USERINFO_URL)
 
 // 退出登录
-export const reqLogout = () => request.delete<any, any>(API.LOGOUT_URL)
+export const reqLogout = () =>
+  request.delete<any, logoutResponseData>(API.LOGOUT_URL)

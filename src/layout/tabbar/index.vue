@@ -4,7 +4,7 @@
     <div class="tabbar_left">
       <el-breadcrumb separator-icon="ArrowRight">
         <el-breadcrumb-item
-          v-for="(item, index) in $router.matched"
+          v-for="(item, index) in $route.matched"
           :key="index"
           v-show="item.meta.title != 'layout'"
           :to="item.path"
@@ -83,7 +83,8 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
+            <el-dropdown-item v-if="userStore.user_id == 0" @click="toLogin">前往登录</el-dropdown-item>
+            <el-dropdown-item v-else @click="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -93,12 +94,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { onClickOutside } from '@vueuse/core'
+import { ElNotification } from 'element-plus'
 import useLayoutSettingStore from '@/store/modules/setting'
 import useUserStore from '@/store/modules/user'
 
-let $router = useRoute()
+let $route = useRoute()
+let $router = useRouter()
 
 let input = ref('')
 
@@ -128,12 +131,23 @@ const refresh = () => {
 
 let userStore = useUserStore()
 
-const logout = async () => {
-  // TODO: 发送请求销毁 token
+const toLogin = () => {
+  $router.push({ path: '/login', query: { redirect: $route.path } })
+}
 
-  await userStore.userLogout()
-  // 重新登录时的重定向, 使用户重新登录后回到之前浏览的页面
-  // $router.push({ path: '/login', query: { redirect: $route.path } })
+const logout = async () => {
+  try {
+    await userStore.userLogout()
+
+    location.reload()
+    // 重新登录时的重定向, 使用户重新登录后回到之前浏览的页面
+    // $router.push({ path: '/login', query: { redirect: $route.path } })
+  } catch (error) {
+    ElNotification({
+      type: 'error',
+      message: (error as Error).message,
+    })
+  }
 }
 </script>
 
