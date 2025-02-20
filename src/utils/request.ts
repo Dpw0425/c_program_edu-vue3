@@ -14,7 +14,7 @@ let request = axios.create({
 request.interceptors.request.use((config) => {
   let userStore = useUserStore()
   if (userStore.token) {
-    config.headers.Authorization = `Bearer ${ userStore.token }`
+    config.headers.Authorization = `Bearer ${userStore.token}`
   }
   // 返回配置对象
   return config

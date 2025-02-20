@@ -2,7 +2,13 @@ import { reqLogin, reqLogout, reqRegister, reqUserInfo } from '@/api/user'
 import { defineStore } from 'pinia'
 import type { UserState } from './types/type'
 import { GET_TOKEN, REMOVE_TOKEN, SET_TOKEN } from '@/utils/token'
-import type { loginForm, loginResponseData, registerForm, registerResponseData, userInfoResponseData } from '@/api/user/type'
+import type {
+  loginForm,
+  loginResponseData,
+  registerForm,
+  registerResponseData,
+  userInfoResponseData,
+} from '@/api/user/type'
 
 let useUserStore = defineStore('User', {
   state: (): UserState => {

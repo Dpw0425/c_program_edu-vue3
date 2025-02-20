@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 import type { loginForm, loginResponseData, userInfoResponseData } from './type'
 
-const USER_API = "/user"
+const USER_API = '/user'
 
 enum API {
   REGISTER_URL = USER_API + '/register',
@@ -23,5 +23,4 @@ export const reqUserInfo = () =>
   request.get<any, userInfoResponseData>(API.USERINFO_URL)
 
 // 退出登录
-export const reqLogout = () =>
-  request.delete<any, any>(API.LOGOUT_URL)
+export const reqLogout = () => request.delete<any, any>(API.LOGOUT_URL)
