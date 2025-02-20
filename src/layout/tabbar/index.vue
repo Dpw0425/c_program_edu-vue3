@@ -83,7 +83,9 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item v-if="userStore.user_id == 0" @click="toLogin">前往登录</el-dropdown-item>
+            <el-dropdown-item v-if="userStore.user_id == 0" @click="toLogin">
+              前往登录
+            </el-dropdown-item>
             <el-dropdown-item v-else @click="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>

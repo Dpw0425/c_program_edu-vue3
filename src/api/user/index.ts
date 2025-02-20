@@ -1,5 +1,10 @@
 import request from '@/utils/request'
-import type { loginForm, loginResponseData, logoutResponseData, userInfoResponseData } from './type'
+import type {
+  loginForm,
+  loginResponseData,
+  logoutResponseData,
+  userInfoResponseData,
+} from './type'
 
 const USER_API = '/user'
 
