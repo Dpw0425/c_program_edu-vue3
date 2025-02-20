@@ -1,37 +1,21 @@
-import { reqLogin, reqRegister, reqUserInfo } from '@/api/user'
-import type {
-  loginForm,
-  loginResponseData,
-  registerForm,
-  registerResponseData,
-} from '@/api/user/type'
+import { reqLogin, reqLogout, reqRegister, reqUserInfo } from '@/api/user'
 import { defineStore } from 'pinia'
 import type { UserState } from './types/type'
 import { GET_TOKEN, REMOVE_TOKEN, SET_TOKEN } from '@/utils/token'
+import type { loginForm, loginResponseData, registerForm, registerResponseData, userInfoResponseData } from '@/api/user/type'
 
 let useUserStore = defineStore('User', {
   state: (): UserState => {
     return {
       token: GET_TOKEN(),
-      username: '',
+      user_id: 0,
+      nick_name: '',
+      email: '',
       avatar: '',
+      status: 0,
     }
   },
   actions: {
-    // 用户登录方法
-    async userLogin(data: loginForm) {
-      let result: loginResponseData = await reqLogin(data)
-      if (result.code == 200) {
-        // pinia 仓库存储 token
-        this.token = result.data?.token as string
-        // 本地持久化 token
-        SET_TOKEN(result.data?.token as string)
-        return 'ok'
-      } else {
-        return Promise.reject(new Error(result.message))
-      }
-    },
-
     // 用户注册方法
     async userRegister(data: registerForm) {
       let result: registerResponseData = await reqRegister(data)
@@ -42,12 +26,29 @@ let useUserStore = defineStore('User', {
       }
     },
 
+    // 用户登录方法
+    async userLogin(data: loginForm) {
+      let result: loginResponseData = await reqLogin(data)
+      if (result.code == 200) {
+        // pinia 仓库存储 token
+        this.token = result.data?.access_token as string
+        // 本地持久化 token
+        SET_TOKEN(result.data?.access_token as string)
+        return 'ok'
+      } else {
+        return Promise.reject(new Error(result.message))
+      }
+    },
+
     // 获取用户信息
     async userInfo() {
-      let result = await reqUserInfo()
+      let result: userInfoResponseData = await reqUserInfo()
       if (result.code == 200) {
-        this.username = result.data.checkUser.username
-        this.avatar = result.data.checkUser.avatar
+        this.user_id = result.data?.user_id
+        this.nick_name = result.data?.nick_name
+        this.email = result.data?.email
+        this.avatar = result.data?.avatar
+        this.status = result.data?.status
 
         return 'ok'
       } else {
@@ -56,12 +57,20 @@ let useUserStore = defineStore('User', {
     },
 
     // 退出登录
-    userLogout() {
-      this.token = ''
-      this.username = ''
-      this.avatar = ''
+    async userLogout() {
+      let result = await reqLogout()
+      if (result.code == 200) {
+        this.user_id = 0
+        this.nick_name = ''
+        this.email = ''
+        this.avatar = ''
+        this.status = 0
 
-      REMOVE_TOKEN()
+        REMOVE_TOKEN()
+        return 'ok'
+      } else {
+        return Promise.reject(new Error(result.message))
+      }
     },
   },
   getters: {},

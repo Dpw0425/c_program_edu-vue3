@@ -1,19 +1,4 @@
-export interface loginForm {
-  email: string
-  password?: string
-  verify_code?: string
-}
-
-interface tokenData {
-  token: string
-}
-export interface loginResponseData {
-  code: number
-  message: string
-  data?: tokenData
-  error_type?: string
-}
-
+// register
 export interface registerForm {
   nickname: string
   password: string
@@ -23,7 +8,6 @@ export interface registerForm {
 }
 
 interface normalData {}
-
 export interface registerResponseData {
   code: number
   message: string
@@ -31,15 +15,36 @@ export interface registerResponseData {
   error_type?: string
 }
 
+// login
+export interface loginForm {
+  email: string
+  password?: string
+  verify_code?: string
+}
+
+interface tokenData {
+  type: string
+  access_token: string
+  expires_in: string
+}
+export interface loginResponseData {
+  code: number
+  message: string
+  data?: tokenData
+  error_type?: string
+}
+
+// userinfo
 interface userInfo {
   user_id: number
+  nick_name: string
+  email: string
   avatar: string
-  username: string
-}
-interface user {
-  checkUser: userInfo
+  status: number
 }
 export interface userInfoResponseData {
   code: number
-  data: user
+  message: string
+  data?: userInfo
+  error_type?: string
 }

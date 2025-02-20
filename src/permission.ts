@@ -26,19 +26,19 @@ router.beforeEach(async (to: any, from: any, next: any) => {
   document.title = to.meta.title + ' - C程序设计训练平台'
 
   let token = userStore.token
-  let username = userStore.username
+  let user_id = userStore.user_id
   if (token) {
     if (to.path === '/register' || to.path === '/login') {
       next({ path: '/' })
     } else {
-      if (username) {
+      if (user_id) {
         next()
       } else {
         try {
           await userStore.userInfo()
           next()
         } catch (error) {
-          userStore.userLogout()
+          await userStore.userLogout()
           next({ path: '/login', query: { redirect: to.path } })
         }
       }

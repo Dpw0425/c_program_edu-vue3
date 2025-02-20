@@ -76,7 +76,7 @@
       />
       <el-dropdown>
         <span class="el-dropdown-link">
-          {{ userStore.username }}
+          {{ userStore.nick_name }}
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
@@ -128,10 +128,10 @@ const refresh = () => {
 
 let userStore = useUserStore()
 
-const logout = () => {
+const logout = async () => {
   // TODO: 发送请求销毁 token
 
-  userStore.userLogout()
+  await userStore.userLogout()
   // 重新登录时的重定向, 使用户重新登录后回到之前浏览的页面
   // $router.push({ path: '/login', query: { redirect: $route.path } })
 }

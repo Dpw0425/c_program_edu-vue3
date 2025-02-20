@@ -98,6 +98,7 @@ import { reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
+import useCommonStore from '@/store/common/common'
 
 const activeTab = ref('loginByEmail')
 const loading = ref(false)
@@ -137,7 +138,8 @@ const login = async () => {
 }
 
 const countdownStore = useCountdownStore()
-const getVerifyCode = () => {
+const commonStore = useCommonStore()
+const getVerifyCode = async () => {
   if (
     !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(loginForm.email)
   ) {
@@ -150,7 +152,16 @@ const getVerifyCode = () => {
 
   countdownStore.startCountdown()
 
-  // TODO: 发送验证码
+  // 发送验证码
+  try {
+    const verifyForm = reactive({ email: loginForm.email, channel: 'login' })
+    await commonStore.GetVerifyCode(verifyForm)
+  } catch (error) {
+    ElNotification({
+      type: 'error',
+      message: (error as Error).message,
+    })
+  }
 }
 
 const resetForm = (tab: any) => {
