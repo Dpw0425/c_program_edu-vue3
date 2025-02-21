@@ -26,17 +26,18 @@
             </el-icon>
           </div>
         </el-upload>
-        <el-form-item prop="nick_name">
+        <el-form-item prop="nickname">
           <label>昵称</label>
           <el-input
             v-model="registerForm.nickname"
             placeholder="昵称"
             maxlength="10"
+            name="nickname"
           />
         </el-form-item>
         <el-form-item prop="email">
           <label>邮箱号</label>
-          <el-input v-model="registerForm.email" placeholder="邮箱号" />
+          <el-input v-model="registerForm.email" placeholder="邮箱号" name="email" />
         </el-form-item>
         <el-form-item prop="verify_code">
           <label>邮箱验证码</label>
@@ -44,6 +45,7 @@
             <el-input
               v-model="registerForm.verify_code"
               placeholder="邮箱验证码"
+              name="verify_code"
             />
             <el-button
               class="verify_btn"
@@ -66,6 +68,7 @@
             type="password"
             v-model="registerForm.password"
             placeholder="密码"
+            name="password"
           />
         </el-form-item>
         <el-form-item prop="confirmPassword">
@@ -74,6 +77,7 @@
             type="password"
             v-model="registerForm.confirmPassword"
             placeholder="请再次输入"
+            name="confirmPassword"
           />
         </el-form-item>
         <el-form-item style="margin-top: 10px">
@@ -93,7 +97,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { ElNotification, type UploadRequestOptions } from 'element-plus'
 import useCountdownStore from '@/store/common/verify'
 import useUserStore from '@/store/modules/user'
@@ -205,6 +209,7 @@ const register = async () => {
       message: '注册成功!',
       title: `恭喜您`,
     })
+    await countdownStore.resetCountdown()
     loading.value = false
   } catch (error) {
     loading.value = false
@@ -247,6 +252,13 @@ const rules = {
   ],
   verify_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
 }
+
+onMounted(() => {
+  const inputs = document.querySelectorAll('input')
+  inputs.forEach(input => {
+    input.setAttribute('autocomplete', 'off')
+  })
+})
 </script>
 
 <style scoped lang="scss">
