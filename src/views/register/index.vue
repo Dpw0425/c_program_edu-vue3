@@ -177,7 +177,10 @@ const getVerifyCode = async () => {
   countdownStore.startCountdown()
 
   try {
-    const verifyForm = reactive({ email: registerForm.email, channel: 'register' })
+    const verifyForm = reactive({
+      email: registerForm.email,
+      channel: 'register',
+    })
     await commonStore.GetVerifyCode(verifyForm)
   } catch (error) {
     ElNotification({
