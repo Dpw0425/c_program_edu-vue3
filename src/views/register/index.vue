@@ -37,7 +37,11 @@
         </el-form-item>
         <el-form-item prop="email">
           <label>邮箱号</label>
-          <el-input v-model="registerForm.email" placeholder="邮箱号" name="email" />
+          <el-input
+            v-model="registerForm.email"
+            placeholder="邮箱号"
+            name="email"
+          />
         </el-form-item>
         <el-form-item prop="verify_code">
           <label>邮箱验证码</label>
@@ -255,7 +259,7 @@ const rules = {
 
 onMounted(() => {
   const inputs = document.querySelectorAll('input')
-  inputs.forEach(input => {
+  inputs.forEach((input) => {
     input.setAttribute('autocomplete', 'off')
   })
 })
