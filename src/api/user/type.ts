@@ -1,4 +1,4 @@
-import type { NormalData, ResponseData } from "../type"
+import type { NormalData, ResponseData } from '../type'
 
 // register
 export interface registerForm {

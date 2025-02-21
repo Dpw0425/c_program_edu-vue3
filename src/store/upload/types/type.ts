@@ -1,3 +1,3 @@
 export interface UploadState {
-    avatar_url: string | undefined
+  avatar_url: string | undefined
 }

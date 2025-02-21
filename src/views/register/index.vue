@@ -150,7 +150,7 @@ const uploadAvatar = async (options: UploadRequestOptions) => {
   try {
     await uploadStore.uploadAvatar(uploadData)
     imageUrl.value = uploadStore.avatar_url
-  } catch(error) {
+  } catch (error) {
     ElNotification({
       type: 'error',
       message: (error as Error).message,

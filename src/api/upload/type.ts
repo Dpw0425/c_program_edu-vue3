@@ -1,12 +1,12 @@
-import type { ResponseData } from "../type"
+import type { ResponseData } from '../type'
 
 export interface uploadAvatarForm {
-    avatar: File
+  avatar: File
 }
 
 interface avatarData {
-    avatar: string
+  avatar: string
 }
 export interface uploadAvatarResponse extends ResponseData {
-    data?: avatarData
+  data?: avatarData
 }
