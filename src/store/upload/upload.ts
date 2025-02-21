@@ -14,7 +14,7 @@ let useUploadStore = defineStore('UploadStore', {
     async uploadAvatar(data: uploadAvatarForm) {
       let result: uploadAvatarResponse = await reqUploadAvatar(data)
       if (result.code == 200) {
-        this.avatar_url = result.data?.avatar
+        this.avatar_url = result.data?.avatar as string
         return 'ok'
       } else {
         return Promise.reject(new Error(result.message))

@@ -32,7 +32,7 @@ export interface loginResponseData extends ResponseData {
 // userinfo
 interface userInfo {
   user_id: number
-  nick_name: string
+  nickname: string
   email: string
   avatar: string
   status: number

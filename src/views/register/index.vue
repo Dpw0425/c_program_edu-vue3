@@ -26,7 +26,7 @@
             </el-icon>
           </div>
         </el-upload>
-        <el-form-item prop="nickname">
+        <el-form-item prop="nick_name">
           <label>昵称</label>
           <el-input
             v-model="registerForm.nickname"
@@ -99,6 +99,7 @@ import useCountdownStore from '@/store/common/verify'
 import useUserStore from '@/store/modules/user'
 import { useRouter } from 'vue-router'
 import useUploadStore from '@/store/upload/upload'
+import useCommonStore from '@/store/common/common'
 
 const registerForm = reactive({
   nickname: '',
@@ -114,6 +115,7 @@ let registerValidate = ref()
 let userStore = useUserStore()
 let $router = useRouter()
 let uploadStore = useUploadStore()
+let commonStore = useCommonStore()
 
 const toLogin = () => {
   $router.push('/login')
@@ -150,6 +152,7 @@ const uploadAvatar = async (options: UploadRequestOptions) => {
   try {
     await uploadStore.uploadAvatar(uploadData)
     imageUrl.value = uploadStore.avatar_url
+    registerForm.avatar = uploadStore.avatar_url as string
   } catch (error) {
     ElNotification({
       type: 'error',
@@ -160,7 +163,7 @@ const uploadAvatar = async (options: UploadRequestOptions) => {
 
 // 获取验证码
 const countdownStore = useCountdownStore()
-const getVerifyCode = () => {
+const getVerifyCode = async () => {
   if (
     !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(registerForm.email)
   ) {
@@ -173,7 +176,15 @@ const getVerifyCode = () => {
 
   countdownStore.startCountdown()
 
-  // TODO: 发送验证码
+  try {
+    const verifyForm = reactive({ email: registerForm.email, channel: 'register' })
+    await commonStore.GetVerifyCode(verifyForm)
+  } catch (error) {
+    ElNotification({
+      type: 'error',
+      message: (error as Error).message,
+    })
+  }
 }
 
 const loading = ref(false)
@@ -193,6 +204,7 @@ const register = async () => {
     })
     loading.value = false
   } catch (error) {
+    loading.value = false
     ElNotification({
       type: 'error',
       message: (error as Error).message,

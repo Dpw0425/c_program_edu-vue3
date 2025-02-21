@@ -96,7 +96,7 @@
             "
           />
           <span style="display: flex; align-items: center">
-            {{ userStore.nick_name }}
+            {{ userStore.nickname }}
           </span>
         </span>
         <template #dropdown>

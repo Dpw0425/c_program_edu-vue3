@@ -3,6 +3,8 @@ import type {
   loginForm,
   loginResponseData,
   logoutResponseData,
+  registerForm,
+  registerResponseData,
   userInfoResponseData,
 } from './type'
 
@@ -16,8 +18,8 @@ enum API {
 }
 
 // 注册接口
-export const reqRegister = (data: any) =>
-  request.post<any, any>(API.REGISTER_URL, data)
+export const reqRegister = (data: registerForm) =>
+  request.post<any, registerResponseData>(API.REGISTER_URL, data)
 
 // 登录接口
 export const reqLogin = (data: loginForm) =>

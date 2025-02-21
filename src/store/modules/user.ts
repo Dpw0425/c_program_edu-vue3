@@ -15,7 +15,7 @@ let useUserStore = defineStore('User', {
     return {
       token: GET_TOKEN(),
       user_id: 0,
-      nick_name: '',
+      nickname: '',
       email: '',
       avatar: '',
       status: 0,
@@ -26,7 +26,7 @@ let useUserStore = defineStore('User', {
     async userRegister(data: registerForm) {
       let result: registerResponseData = await reqRegister(data)
       if (result.code == 200) {
-        // 处理业务
+        return 'ok'
       } else {
         return Promise.reject(new Error(result.message))
       }
@@ -50,11 +50,11 @@ let useUserStore = defineStore('User', {
     async userInfo() {
       let result: userInfoResponseData = await reqUserInfo()
       if (result.code == 200) {
-        this.user_id = result.data?.user_id
-        this.nick_name = result.data?.nick_name
-        this.email = result.data?.email
-        this.avatar = result.data?.avatar
-        this.status = result.data?.status
+        this.user_id = result.data?.user_id as number
+        this.nickname = result.data?.nickname as string
+        this.email = result.data?.email as string
+        this.avatar = result.data?.avatar as string
+        this.status = result.data?.status as number
 
         return 'ok'
       } else {
@@ -67,7 +67,7 @@ let useUserStore = defineStore('User', {
       let result = await reqLogout()
       if (result.code == 200) {
         this.user_id = 0
-        this.nick_name = ''
+        this.nickname = ''
         this.email = ''
         this.avatar = ''
         this.status = 0
