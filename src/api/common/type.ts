@@ -1,12 +1,10 @@
+import type { NormalData, ResponseData } from "../type"
+
 export interface verifyForm {
   email: string
   channel: string
 }
 
-interface normalData {}
-export interface verifyResponseData {
-  code: number
-  message: string
-  data?: normalData
-  error_type?: string
+export interface verifyResponseData extends ResponseData {
+  data?: NormalData
 }

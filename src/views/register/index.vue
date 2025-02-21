@@ -16,7 +16,7 @@
           class="avatar_uploader"
           action="#"
           :show-file-list="false"
-          :on-success="uploadSuccess"
+          :http-request="uploadAvatar"
           :before-upload="beforeUpload"
         >
           <img v-if="imageUrl" :src="imageUrl" class="avatar" />
@@ -94,10 +94,11 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { ElNotification } from 'element-plus'
+import { ElNotification, type UploadRequestOptions } from 'element-plus'
 import useCountdownStore from '@/store/common/verify'
 import useUserStore from '@/store/modules/user'
 import { useRouter } from 'vue-router'
+import useUploadStore from '@/store/upload/upload'
 
 const registerForm = reactive({
   nickname: '',
@@ -112,16 +113,50 @@ let registerValidate = ref()
 
 let userStore = useUserStore()
 let $router = useRouter()
+let uploadStore = useUploadStore()
 
 const toLogin = () => {
   $router.push('/login')
 }
 
-// 上传成功回调
-const uploadSuccess = () => {}
-
 // 上传前校验
-const beforeUpload = () => {}
+const beforeUpload = (file: File) => {
+  const isImage = file.type.startsWith('image/')
+  const sizeLimit = file.size / 1024 / 1024 < 2
+
+  if (!isImage) {
+    ElNotification({
+      type: 'error',
+      message: '只能上传图片文件',
+    })
+    return false
+  }
+  if (!sizeLimit) {
+    ElNotification({
+      type: 'error',
+      message: '图片大小不能超过 2MB',
+    })
+    return false
+  }
+
+  return true
+}
+
+// 上传头像
+const uploadAvatar = async (options: UploadRequestOptions) => {
+  let file = options.file
+  let uploadData = { avatar: file }
+
+  try {
+    await uploadStore.uploadAvatar(uploadData)
+    imageUrl.value = uploadStore.avatar_url
+  } catch(error) {
+    ElNotification({
+      type: 'error',
+      message: (error as Error).message,
+    })
+  }
+}
 
 // 获取验证码
 const countdownStore = useCountdownStore()

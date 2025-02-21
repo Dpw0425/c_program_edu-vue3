@@ -1,3 +1,5 @@
+import type { NormalData, ResponseData } from "../type"
+
 // register
 export interface registerForm {
   nickname: string
@@ -7,12 +9,8 @@ export interface registerForm {
   verify_code: string
 }
 
-interface normalData {}
-export interface registerResponseData {
-  code: number
-  message: string
-  data?: normalData
-  error_type?: string
+export interface registerResponseData extends ResponseData {
+  data?: NormalData
 }
 
 // login
@@ -27,11 +25,8 @@ interface tokenData {
   access_token: string
   expires_in: string
 }
-export interface loginResponseData {
-  code: number
-  message: string
+export interface loginResponseData extends ResponseData {
   data?: tokenData
-  error_type?: string
 }
 
 // userinfo
@@ -42,17 +37,11 @@ interface userInfo {
   avatar: string
   status: number
 }
-export interface userInfoResponseData {
-  code: number
-  message: string
+export interface userInfoResponseData extends ResponseData {
   data?: userInfo
-  error_type?: string
 }
 
 // logout
-export interface logoutResponseData {
-  code: number
-  message: string
-  data?: normalData
-  error_type?: string
+export interface logoutResponseData extends ResponseData {
+  data?: NormalData
 }
