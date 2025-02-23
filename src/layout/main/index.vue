@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: rgb(239, 239, 239);">
+  <div style="background-color: rgb(239, 239, 239)">
     <router-view v-slot="{ Component }">
       <transition name="fade">
         <component :is="Component" v-if="flag" />

@@ -1,3 +1,1 @@
-export interface carouselTestData {
-
-}
+export interface carouselTestData {}

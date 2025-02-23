@@ -7,5 +7,5 @@
 <script setup lang="ts"></script>
 
 <style scoped>
-@import 'bootstrap/dist/css/bootstrap.css'
+@import 'bootstrap/dist/css/bootstrap.css';
 </style>

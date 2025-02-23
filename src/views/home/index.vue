@@ -9,15 +9,15 @@
               <!-- 轮播图 -->
               <div class="col-md-8">
                 <el-carousel height="270px">
-                    <!-- TODO: 补充轮播图逻辑 -->
-                    <el-carousel-item>test data</el-carousel-item>
+                  <!-- TODO: 补充轮播图逻辑 -->
+                  <el-carousel-item>test data</el-carousel-item>
                 </el-carousel>
               </div>
               <!-- 日历 -->
-              <div class="col-md-4" style="text-align: center;">
-                <h2 style="font-size: 1.25em;">
+              <div class="col-md-4" style="text-align: center">
+                <h2 style="font-size: 1.25em">
                   欢迎回来，
-                  <a href="#" target="_blank" style="color: #0e90d2 !important;">
+                  <a href="#" target="_blank" style="color: #0e90d2 !important">
                     {{ userStore.nickname }}
                   </a>
                 </h2>
@@ -29,14 +29,10 @@
     </div>
 
     <!--  -->
-    <div class="row">
-
-    </div>
+    <div class="row"></div>
 
     <!--  -->
-    <div class="row">
-
-    </div>
+    <div class="row"></div>
   </div>
 </template>
 
@@ -63,7 +59,7 @@ let userStore = useUserStore()
 }
 
 @media only screen and (min-width: 641px) {
-  [class *= col-] {
+  [class*='col-'] {
     padding-left: 1rem;
     padding-right: 1rem;
   }
@@ -76,7 +72,7 @@ let userStore = useUserStore()
 }
 
 .article {
-  background: rgba(255, 255, 255, .7);
+  background: rgba(255, 255, 255, 0.7);
   padding: 16px;
   margin-bottom: 15px;
   position: relative;
