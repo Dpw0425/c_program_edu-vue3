@@ -1,7 +1,7 @@
 <template>
-  <div class="home_container">
+  <div class="layout_container">
     <!-- 左侧菜单 -->
-    <div class="home_slider">
+    <div class="layout_slider">
       <div class="home_button">
         <svg-icon name="home" color="white" width="60%" height="60%"></svg-icon>
       </div>
@@ -19,11 +19,11 @@
       </el-menu>
     </div>
     <!-- 顶部导航 -->
-    <div class="home_tabbar">
+    <div class="layout_tabbar">
       <Tabbar></Tabbar>
     </div>
     <!-- 内容展示区 -->
-    <div class="home_main">
+    <div class="layout_main">
       <Main></Main>
     </div>
   </div>
@@ -45,11 +45,11 @@ let $router = useRoute()
 </script>
 
 <style scoped lang="scss">
-.home_container {
+.layout_container {
   width: 100%;
   height: 100vh;
 
-  .home_slider {
+  .layout_slider {
     width: $base-menu-width;
     height: 100vh;
     background-color: $base-menu-background-color;
@@ -72,7 +72,7 @@ let $router = useRoute()
     }
   }
 
-  .home_tabbar {
+  .layout_tabbar {
     position: fixed;
     top: 0px;
     left: $base-menu-width;
@@ -82,7 +82,7 @@ let $router = useRoute()
     color: $base-tabbar-font-color;
   }
 
-  .home_main {
+  .layout_main {
     position: absolute;
     width: calc(100% - $base-menu-width);
     height: calc(100vh - $base-tabbar-height);

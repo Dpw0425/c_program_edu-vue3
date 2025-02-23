@@ -103,11 +103,11 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { ElNotification, type UploadRequestOptions } from 'element-plus'
-import useCountdownStore from '@/store/common/verify'
+import useCountdownStore from '@/store/modules/verify'
 import useUserStore from '@/store/modules/user'
 import { useRouter } from 'vue-router'
-import useUploadStore from '@/store/upload/upload'
-import useCommonStore from '@/store/common/common'
+import useUploadStore from '@/store/modules/upload'
+import useCommonStore from '@/store/modules/common'
 
 const registerForm = reactive({
   nickname: '',
@@ -156,6 +156,8 @@ const beforeUpload = (file: File) => {
 const uploadAvatar = async (options: UploadRequestOptions) => {
   let file = options.file
   let uploadData = { avatar: file }
+
+  // TODO: 将不作为头像使用的上一张上传的图片删除
 
   try {
     await uploadStore.uploadAvatar(uploadData)

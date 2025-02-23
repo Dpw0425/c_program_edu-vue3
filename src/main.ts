@@ -9,6 +9,9 @@ import 'element-plus/dist/index.css'
 // @ts-ignore
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
+// 引入 bootstrap
+import 'bootstrap/dist/css/bootstrap.css'
+
 // 配置 svg 插件
 // @ts-ignore
 import 'virtual:svg-icons-register'

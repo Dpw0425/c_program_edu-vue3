@@ -1,7 +1,7 @@
 import { reqUploadAvatar } from '@/api/upload'
 import type { uploadAvatarForm, uploadAvatarResponse } from '@/api/upload/type'
 import { defineStore } from 'pinia'
-import type { UploadState } from './types/type'
+import type { UploadState } from '../types/upload'
 
 let useUploadStore = defineStore('UploadStore', {
   state: (): UploadState => {

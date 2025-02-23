@@ -1,6 +1,6 @@
 import { reqLogin, reqLogout, reqRegister, reqUserInfo } from '@/api/user'
 import { defineStore } from 'pinia'
-import type { UserState } from './types/type'
+import type { UserState } from '../types/user'
 import { GET_TOKEN, REMOVE_TOKEN, SET_TOKEN } from '@/utils/token'
 import type {
   loginForm,

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background-color: rgb(239, 239, 239);">
     <router-view v-slot="{ Component }">
       <transition name="fade">
         <component :is="Component" v-if="flag" />
@@ -26,7 +26,7 @@ watch(
 )
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .fade-enter-from {
   opacity: 0;
   transform: scale(0);

@@ -92,13 +92,13 @@
 
 <script setup lang="ts">
 import useUserStore from '@/store/modules/user'
-import useCountdownStore from '@/store/common/verify'
+import useCountdownStore from '@/store/modules/verify'
 import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
-import useCommonStore from '@/store/common/common'
+import useCommonStore from '@/store/modules/common'
 
 const activeTab = ref('loginByEmail')
 const loading = ref(false)
