@@ -10,8 +10,15 @@
               <div class="col-md-8">
                 <el-carousel height="270px">
                   <!-- TODO: 补充轮播图逻辑 -->
-                  <el-carousel-item v-for="(item, index) in commonStore.carousel" :key="index">
-                    <img :src="getImageUrl(item)" :alt="'Carousel Image' + (index + 1)" style="width: 100%; height: 100%; object-fit: cover;">
+                  <el-carousel-item
+                    v-for="(item, index) in commonStore.carousel"
+                    :key="index"
+                  >
+                    <img
+                      :src="getImageUrl(item)"
+                      :alt="'Carousel Image' + (index + 1)"
+                      style="width: 100%; height: 100%; object-fit: cover"
+                    />
                   </el-carousel-item>
                 </el-carousel>
               </div>
@@ -40,8 +47,8 @@
 
 <script setup lang="ts">
 import useUserStore from '@/store/modules/user'
-import useCommonStore from '@/store/modules/common';
-import { onMounted } from 'vue';
+import useCommonStore from '@/store/modules/common'
+import { onMounted } from 'vue'
 
 let userStore = useUserStore()
 let commonStore = useCommonStore()

@@ -1,3 +1,3 @@
 export interface commonState {
-    carousel: string[] | null
+  carousel: string[] | null
 }

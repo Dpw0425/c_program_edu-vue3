@@ -7,7 +7,7 @@ import { carouselTestData } from '../constants/carousel'
 let useCommonStore = defineStore('CommonStore', {
   state: (): commonState => {
     return {
-      carousel: null
+      carousel: null,
     }
   },
   actions: {
@@ -25,9 +25,13 @@ let useCommonStore = defineStore('CommonStore', {
     GetCarousel() {
       // TODO: 切换成真正接口
       // test data
-      let carouselList: string[] = [carouselTestData.testData1, carouselTestData.testData2, carouselTestData.testData3]
+      let carouselList: string[] = [
+        carouselTestData.testData1,
+        carouselTestData.testData2,
+        carouselTestData.testData3,
+      ]
       this.carousel = carouselList
-    }
+    },
   },
   getters: {},
 })
