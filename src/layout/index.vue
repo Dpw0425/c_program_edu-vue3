@@ -3,7 +3,7 @@
     <!-- 左侧菜单 -->
     <div class="layout_slider">
       <div class="home_button">
-        <svg-icon name="home" color="white" width="60%" height="60%"></svg-icon>
+        <svg-icon name="logo" width="60%" height="60%"></svg-icon>
       </div>
 
       <!-- 分割 -->
