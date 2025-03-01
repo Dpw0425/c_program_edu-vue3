@@ -1,15 +1,14 @@
 <template>
   <div class="home_container">
     <!-- 首页轮播图 -->
-    <div class="grid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="article">
-            <div class="row">
-              <!-- 轮播图 -->
-              <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="article">
+          <div class="row">
+            <!-- 轮播图 -->
+            <div class="col-md-8">
                 <el-carousel height="270px">
-                  <!-- TODO: 补充轮播图逻辑 -->
+                  <!-- TODO: 替换真实接口 -->
                   <el-carousel-item
                     v-for="(item, index) in commonStore.carousel"
                     :key="index"
@@ -21,15 +20,30 @@
                     />
                   </el-carousel-item>
                 </el-carousel>
-              </div>
-              <!-- 日历 -->
-              <div class="col-md-4" style="text-align: center">
-                <h2 style="font-size: 1.25em">
-                  欢迎回来，
-                  <a href="#" target="_blank" style="color: #0e90d2 !important">
-                    {{ userStore.nickname }}
-                  </a>
-                </h2>
+            </div>
+            <!-- 日历 -->
+            <div class="col-md-4" style="text-align: center">
+              <h2 style="font-size: 1.25em; margin: 2.5rem 0 2rem; font-weight: 600;">
+                欢迎回来，
+                <span style="color: #0e90d2 !important">
+                  {{ userStore.nickname }}
+                </span>
+              </h2>
+              <div class="calendar">
+                <div>
+                  <span class="mounth">
+                    {{ commonStore.month + commonStore.monthType }}
+                  </span>
+                  <span class="date">
+                    {{ commonStore.date }}
+                  </span>
+                  <span class="weekday">
+                    {{ commonStore.weekday }}
+                  </span>
+                </div>
+                <span class="lunar">
+                  {{ commonStore.lunarDate }}
+                </span>
               </div>
             </div>
           </div>
@@ -38,7 +52,19 @@
     </div>
 
     <!--  -->
-    <div class="row"></div>
+    <div class="row">
+      <div class="col-md-8">
+        <el-card shadow="never">
+          <h2>热点题目</h2>
+        </el-card>
+      </div>
+
+      <div class="col-md-4">
+        <el-card shadow="never">
+          <h2>公告</h2>
+        </el-card>
+      </div>
+    </div>
 
     <!--  -->
     <div class="row"></div>
@@ -59,8 +85,10 @@ const getImageUrl = (path: string) => {
 }
 
 onMounted(async () => {
+  // 加载轮播图
   await commonStore.GetCarousel()
-  console.log(commonStore.carousel)
+  // 加载日历
+  await commonStore.GetCalendar()
 })
 </script>
 
@@ -75,7 +103,7 @@ onMounted(async () => {
   max-width: 1100px;
 }
 
-.grid {
+.row {
   margin: 0 auto;
   width: 100%;
 }
@@ -105,5 +133,59 @@ onMounted(async () => {
       margin-right: -1rem;
     }
   }
+}
+
+.calendar {
+  margin-top: 10px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mounth {
+  display: inline-block;
+  width: 20px;
+  vertical-align: top;
+  line-height: 17px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.date {
+  display: inline-block;
+  font-size: 85px;
+  vertical-align: top;
+  line-height: 55px;
+  font-weight: bolder;
+}
+
+.weekday {
+  display: inline-block;
+  width: 20px;
+  vertical-align: top;
+  line-height: 17px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.lunar {
+  display: inline-block;
+  line-height: 12px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 2rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.25em;
+}
+
+.el-card {
+  border: none;
+  box-sizing: border-box;
 }
 </style>

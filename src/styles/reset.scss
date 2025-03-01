@@ -1,38 +1,44 @@
 // Reset styles  
-*, *::before, *::after {  
-    box-sizing: border-box; // 确保包括边框和填充在内的宽高  
-    margin: 0;  
-    padding: 0;  
-  }  
+*, *::before, *::after {
+  box-sizing: border-box; // 确保包括边框和填充在内的宽高
+  margin: 0;
+  padding: 0;
+}
+
+// 基本元素的样式重置
+html, body {
+  height: 100%; // 确保文档高度占满视口
+  line-height: 1.5; // 默认行高
+  font-family: Arial, sans-serif; // 通用字体
+  color: #333; // 默认字体颜色
+}
+
+ul, ol {
+  list-style: none; // 去除默认列表样式
+}
+
+a {
+  text-decoration: none; // 去除链接下划线
+  color: inherit; // 使链接颜色继承自父元素
+}
+
+img {
+  max-width: 100%; // 确保图像不超出其容器宽度
+  display: block; // 防止底部留白
+}
   
-  // 基本元素的样式重置  
-  html, body {  
-    height: 100%; // 确保文档高度占满视口  
-    line-height: 1.5; // 默认行高  
-    font-family: Arial, sans-serif; // 通用字体  
-    color: #333; // 默认字体颜色  
-  }  
+// 表单元素重置  
+button, input, textarea {
+  font-family: inherit; // 确保输入字体一致
+  font-size: inherit; // 确保输入字体大小一致
+}
   
-  ul, ol {  
-    list-style: none; // 去除默认列表样式  
-  }  
-  
-  a {  
-    text-decoration: none; // 去除链接下划线  
-    color: inherit; // 使链接颜色继承自父元素  
-  }  
-  
-  img {  
-    max-width: 100%; // 确保图像不超出其容器宽度  
-    display: block; // 防止底部留白  
-  }  
-  
-  // 表单元素重置  
-  button, input, textarea {  
-    font-family: inherit; // 确保输入字体一致  
-    font-size: inherit; // 确保输入字体大小一致  
-  }  
-  
-  button {  
-    cursor: pointer; // 鼠标光标样式  
-  }
+button {
+  cursor: pointer; // 鼠标光标样式
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1.6rem;
+  font-weight: 600;
+  font-size: 100%;
+}

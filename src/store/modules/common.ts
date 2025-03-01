@@ -3,11 +3,18 @@ import type { verifyForm, verifyResponseData } from '@/api/common/type'
 import { defineStore } from 'pinia'
 import type { commonState } from '../types/common'
 import { carouselTestData } from '../constants/carousel'
+import { getLunarDate, getMonthType } from '@/utils/time'
+import { monthNames, weekdays } from '../constants/date'
 
 let useCommonStore = defineStore('CommonStore', {
   state: (): commonState => {
     return {
       carousel: null,
+      month: '',
+      date: '',
+      weekday: '',
+      monthType: '',
+      lunarDate: ''
     }
   },
   actions: {
@@ -32,6 +39,22 @@ let useCommonStore = defineStore('CommonStore', {
       ]
       this.carousel = carouselList
     },
+
+    // 获取日历
+    GetCalendar() {
+      const today = new Date()
+      const monthType = getMonthType(today)
+
+      this.month = monthNames[today.getMonth()]
+      this.monthType = monthType
+      if (today.getDate() < 10) {
+        this.date = '0' + today.getDate().toString()
+      } else {
+        this.date = today.getDate().toString()
+      }
+      this.weekday = weekdays[today.getDay()]
+      this.lunarDate = getLunarDate(today)
+    }
   },
   getters: {},
 })
