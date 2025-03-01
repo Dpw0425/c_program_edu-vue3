@@ -14,7 +14,7 @@ let useCommonStore = defineStore('CommonStore', {
       date: '',
       weekday: '',
       monthType: '',
-      lunarDate: ''
+      lunarDate: '',
     }
   },
   actions: {
@@ -54,7 +54,7 @@ let useCommonStore = defineStore('CommonStore', {
       }
       this.weekday = weekdays[today.getDay()]
       this.lunarDate = getLunarDate(today)
-    }
+    },
   },
   getters: {},
 })

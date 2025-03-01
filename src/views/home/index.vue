@@ -7,23 +7,29 @@
           <div class="row">
             <!-- 轮播图 -->
             <div class="col-md-8">
-                <el-carousel height="270px">
-                  <!-- TODO: 替换真实接口 -->
-                  <el-carousel-item
-                    v-for="(item, index) in commonStore.carousel"
-                    :key="index"
-                  >
-                    <img
-                      :src="getImageUrl(item)"
-                      :alt="'Carousel Image' + (index + 1)"
-                      style="width: 100%; height: 100%; object-fit: cover"
-                    />
-                  </el-carousel-item>
-                </el-carousel>
+              <el-carousel height="270px">
+                <!-- TODO: 替换真实接口 -->
+                <el-carousel-item
+                  v-for="(item, index) in commonStore.carousel"
+                  :key="index"
+                >
+                  <img
+                    :src="getImageUrl(item)"
+                    :alt="'Carousel Image' + (index + 1)"
+                    style="width: 100%; height: 100%; object-fit: cover"
+                  />
+                </el-carousel-item>
+              </el-carousel>
             </div>
             <!-- 日历 -->
             <div class="col-md-4" style="text-align: center">
-              <h2 style="font-size: 1.25em; margin: 2.5rem 0 2rem; font-weight: 600;">
+              <h2
+                style="
+                  font-size: 1.25em;
+                  margin: 2.5rem 0 2rem;
+                  font-weight: 600;
+                "
+              >
                 欢迎回来，
                 <span style="color: #0e90d2 !important">
                   {{ userStore.nickname }}
