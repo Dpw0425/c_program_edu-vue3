@@ -26,10 +26,10 @@
             </el-icon>
           </div>
         </el-upload>
-        <el-form-item prop="nickname">
-          <label>昵称</label>
+        <el-form-item prop="user_name">
+          <label>用户名</label>
           <el-input
-            v-model="registerForm.nickname"
+            v-model="registerForm.user_name"
             placeholder="昵称"
             maxlength="10"
             name="nickname"
@@ -84,6 +84,21 @@
             name="confirmPassword"
           />
         </el-form-item>
+        <el-form-item prop="grade">
+          <label>选择年级</label>
+          <el-select v-model="registerForm.grade" palceholder="请选择">
+            <!-- TODO: 替换真实接口获取年级 -->
+            <el-option v-for="item in Grades" :value="item.label"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item prop="student_id">
+          <label>绑定学号</label>
+          <el-input
+            v-model="registerForm.student_id"
+            placeholder="请输入学号"
+            name="student_id"
+          />
+        </el-form-item>
         <el-form-item style="margin-top: 10px">
           <el-button
             class="register_btn"
@@ -108,13 +123,16 @@ import useUserStore from '@/store/modules/user'
 import { useRouter } from 'vue-router'
 import useUploadStore from '@/store/modules/upload'
 import useCommonStore from '@/store/modules/common'
+import { Grades } from '@/store/constants/grade'
 
 const registerForm = reactive({
-  nickname: '',
+  user_name: '',
   password: '',
   confirmPassword: '',
+  student_id: null,
   avatar: '',
   email: '',
+  grade: null,
   verify_code: '',
 })
 let imageUrl = ref()
@@ -234,8 +252,17 @@ const validateConfirmPassword = (rules, value, callback) => {
     callback()
   }
 }
+// @ts-ignore
+const validateStudentID = (rules, value, callback) => {
+  if (value && !/^\d+$/.test(String(value))) {
+    callback(new Error('学号格式有误'))
+  } else {
+    callback()
+  }
+}
 const rules = {
-  nickname: [
+  // TODO: 更新校验规则
+  user_name: [
     { required: true, message: '请输入昵称', trigger: 'blur' },
     { min: 2, message: '昵称不得少于 2 个字符', trigger: 'blur' },
     { max: 8, message: '昵称最多为 8 个字符', trigger: ['blur', 'change'] },
@@ -257,6 +284,13 @@ const rules = {
     { validator: validateConfirmPassword, trigger: ['blur', 'change'] },
   ],
   verify_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
+  student_id: [
+    { required: true, message: '请绑定学号', trigger: 'blur' },
+    { min: 10, message: '学号格式有误', trigger: ['blur', 'change'] },
+    { max: 10, message: '学号格式有误', trigger: ['blur', 'change'] },
+    { validator: validateStudentID, trigger: ['blur', 'change'] }
+  ],
+  grade: [{ required: true, message: '请选择年级', trigger: 'blur' }],
 }
 
 onMounted(() => {

@@ -14,11 +14,13 @@ let useUserStore = defineStore('User', {
   state: (): UserState => {
     return {
       token: GET_TOKEN(),
-      user_id: 0,
-      nickname: '',
+      user_id: null,
+      user_name: '',
+      student_id: null,
       email: '',
       avatar: '',
-      status: 0,
+      grade: null,
+      status: null,
     }
   },
   actions: {
@@ -51,9 +53,11 @@ let useUserStore = defineStore('User', {
       let result: userInfoResponseData = await reqUserInfo()
       if (result.code == 200) {
         this.user_id = result.data?.user_id as number
-        this.nickname = result.data?.nickname as string
+        this.user_name = result.data?.user_name as string
+        this.student_id = result.data?.student_id as number
         this.email = result.data?.email as string
         this.avatar = result.data?.avatar as string
+        this.grade = result.data?.grade as number
         this.status = result.data?.status as number
 
         return 'ok'
@@ -66,11 +70,13 @@ let useUserStore = defineStore('User', {
     async userLogout() {
       let result = await reqLogout()
       if (result.code == 200) {
-        this.user_id = 0
-        this.nickname = ''
+        this.user_id = null
+        this.user_name = ''
+        this.student_id = null
         this.email = ''
         this.avatar = ''
-        this.status = 0
+        this.grade = null
+        this.status = null
 
         REMOVE_TOKEN()
         return 'ok'

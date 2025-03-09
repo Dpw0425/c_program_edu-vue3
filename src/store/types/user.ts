@@ -1,8 +1,10 @@
 export interface UserState {
   token: string | null
-  user_id: number
-  nickname: string
-  email: string
-  avatar: string
-  status: number
+  user_id: number | null
+  user_name: string | null
+  student_id: number | null
+  email: string | null
+  avatar: string | null
+  grade: number | null
+  status: number | null
 }

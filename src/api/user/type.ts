@@ -2,10 +2,12 @@ import type { NormalData, ResponseData } from '../type'
 
 // register
 export interface registerForm {
-  nickname: string
+  user_name: string
   password: string
+  student_id: number | null
   avatar: string
   email: string
+  grade: number | null
   verify_code: string
 }
 
@@ -32,9 +34,11 @@ export interface loginResponseData extends ResponseData {
 // userinfo
 interface userInfo {
   user_id: number
-  nickname: string
+  user_name: string
+  student_id: number
   email: string
   avatar: string
+  grade: number
   status: number
 }
 export interface userInfoResponseData extends ResponseData {
