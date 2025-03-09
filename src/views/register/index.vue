@@ -288,7 +288,7 @@ const rules = {
     { required: true, message: '请绑定学号', trigger: 'blur' },
     { min: 10, message: '学号格式有误', trigger: ['blur', 'change'] },
     { max: 10, message: '学号格式有误', trigger: ['blur', 'change'] },
-    { validator: validateStudentID, trigger: ['blur', 'change'] }
+    { validator: validateStudentID, trigger: ['blur', 'change'] },
   ],
   grade: [{ required: true, message: '请选择年级', trigger: 'blur' }],
 }
