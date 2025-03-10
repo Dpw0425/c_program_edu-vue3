@@ -291,7 +291,11 @@ const rules = {
   student_id: [
     { required: true, message: '请绑定学号', trigger: 'blur' },
     { type: 'number', message: '学号格式有误', trigger: ['blur', 'change'] },
-    { pattern: /^\d{10}$/, message: '学号格式有误', trigger: ['blur', 'change'] }
+    {
+      pattern: /^\d{10}$/,
+      message: '学号格式有误',
+      trigger: ['blur', 'change'],
+    },
   ],
   grade: [{ required: true, message: '请选择年级', trigger: 'blur' }],
 }
