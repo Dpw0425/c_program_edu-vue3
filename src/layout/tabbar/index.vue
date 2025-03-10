@@ -76,7 +76,7 @@
           style="display: flex; align-items: center"
         >
           <img
-            v-if="userStore.user_id == 0"
+            v-if="userStore.user_id == null"
             src="@/assets/images/login.jpg"
             style="
               width: 38px;
@@ -87,7 +87,7 @@
           />
           <img
             v-else
-            :src="userStore.avatar"
+            :src="userStore.avatar as string"
             style="
               width: 38px;
               height: 38px;
@@ -101,7 +101,7 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item v-if="userStore.user_id == 0" @click="toLogin">
+            <el-dropdown-item v-if="userStore.user_id == null" @click="toLogin">
               前往登录
             </el-dropdown-item>
             <el-dropdown-item v-else @click="logout">退出登录</el-dropdown-item>

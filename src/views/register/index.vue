@@ -94,7 +94,7 @@
         <el-form-item prop="student_id">
           <label>绑定学号</label>
           <el-input
-            v-model="registerForm.student_id"
+            v-model.number="registerForm.student_id"
             placeholder="请输入学号"
             name="student_id"
           />
@@ -124,6 +124,7 @@ import { useRouter } from 'vue-router'
 import useUploadStore from '@/store/modules/upload'
 import useCommonStore from '@/store/modules/common'
 import { Grades } from '@/store/constants/grade'
+import { defaultUserAvatar } from '@/store/constants/avatar'
 
 const registerForm = reactive({
   user_name: '',
@@ -223,6 +224,10 @@ const register = async () => {
   // 表单校验
   await registerValidate.value.validate()
 
+  if (registerForm.avatar === '') {
+    registerForm.avatar = defaultUserAvatar
+  }
+
   loading.value = true
 
   try {
@@ -261,7 +266,6 @@ const validateStudentID = (rules, value, callback) => {
   }
 }
 const rules = {
-  // TODO: 更新校验规则
   user_name: [
     { required: true, message: '请输入昵称', trigger: 'blur' },
     { min: 2, message: '昵称不得少于 2 个字符', trigger: 'blur' },
@@ -286,9 +290,8 @@ const rules = {
   verify_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
   student_id: [
     { required: true, message: '请绑定学号', trigger: 'blur' },
-    { min: 10, message: '学号格式有误', trigger: ['blur', 'change'] },
-    { max: 10, message: '学号格式有误', trigger: ['blur', 'change'] },
-    { validator: validateStudentID, trigger: ['blur', 'change'] },
+    { type: 'number', message: '学号格式有误', trigger: ['blur', 'change'] },
+    { pattern: /^\d{10}$/, message: '学号格式有误', trigger: ['blur', 'change'] }
   ],
   grade: [{ required: true, message: '请选择年级', trigger: 'blur' }],
 }
