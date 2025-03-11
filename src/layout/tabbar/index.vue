@@ -101,9 +101,7 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu v-if="userStore.user_id == null">
-            <el-dropdown-item @click="toLogin">
-              前往登录
-            </el-dropdown-item>
+            <el-dropdown-item @click="toLogin">前往登录</el-dropdown-item>
           </el-dropdown-menu>
           <el-dropdown-menu v-else>
             <el-dropdown-item>个人中心</el-dropdown-item>
