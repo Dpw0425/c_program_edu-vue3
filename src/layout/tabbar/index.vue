@@ -100,11 +100,14 @@
           </span>
         </span>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item v-if="userStore.user_id == null" @click="toLogin">
+          <el-dropdown-menu v-if="userStore.user_id == null">
+            <el-dropdown-item @click="toLogin">
               前往登录
             </el-dropdown-item>
-            <el-dropdown-item v-else @click="logout">退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+          <el-dropdown-menu v-else>
+            <el-dropdown-item>个人中心</el-dropdown-item>
+            <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -159,7 +162,6 @@ const logout = async () => {
   try {
     await userStore.userLogout()
 
-    location.reload()
     // 重新登录时的重定向, 使用户重新登录后回到之前浏览的页面
     // $router.push({ path: '/login', query: { redirect: $route.path } })
   } catch (error) {

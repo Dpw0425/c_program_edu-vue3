@@ -4,7 +4,7 @@ import type { NormalData, ResponseData } from '../type'
 export interface registerForm {
   user_name: string
   password: string
-  student_id: number | null
+  student_id: string
   avatar: string
   email: string
   grade: number | null
@@ -35,7 +35,7 @@ export interface loginResponseData extends ResponseData {
 interface userInfo {
   user_id: number
   user_name: string
-  student_id: number
+  student_id: string
   email: string
   avatar: string
   grade: number

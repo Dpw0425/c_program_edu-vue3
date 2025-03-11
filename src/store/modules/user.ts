@@ -16,7 +16,7 @@ let useUserStore = defineStore('User', {
       token: GET_TOKEN(),
       user_id: null,
       user_name: '',
-      student_id: null,
+      student_id: '',
       email: '',
       avatar: '',
       grade: null,
@@ -54,7 +54,7 @@ let useUserStore = defineStore('User', {
       if (result.code == 200) {
         this.user_id = result.data?.user_id as number
         this.user_name = result.data?.user_name as string
-        this.student_id = result.data?.student_id as number
+        this.student_id = result.data?.student_id as string
         this.email = result.data?.email as string
         this.avatar = result.data?.avatar as string
         this.grade = result.data?.grade as number
@@ -68,21 +68,18 @@ let useUserStore = defineStore('User', {
 
     // 退出登录
     async userLogout() {
-      let result = await reqLogout()
-      if (result.code == 200) {
-        this.user_id = null
-        this.user_name = ''
-        this.student_id = null
-        this.email = ''
-        this.avatar = ''
-        this.grade = null
-        this.status = null
+      await reqLogout()
+      this.user_id = null
+      this.user_name = ''
+      this.student_id = ''
+      this.email = ''
+      this.avatar = ''
+      this.grade = null
+      this.status = null
 
-        REMOVE_TOKEN()
-        return 'ok'
-      } else {
-        return Promise.reject(new Error(result.message))
-      }
+      REMOVE_TOKEN()
+      location.reload()
+      return 'ok'
     },
   },
   getters: {},

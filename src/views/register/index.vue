@@ -94,7 +94,7 @@
         <el-form-item prop="student_id">
           <label>绑定学号</label>
           <el-input
-            v-model.number="registerForm.student_id"
+            v-model="registerForm.student_id"
             placeholder="请输入学号"
             name="student_id"
           />
@@ -130,7 +130,7 @@ const registerForm = reactive({
   user_name: '',
   password: '',
   confirmPassword: '',
-  student_id: null,
+  student_id: '',
   avatar: '',
   email: '',
   grade: null,
@@ -290,12 +290,9 @@ const rules = {
   verify_code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
   student_id: [
     { required: true, message: '请绑定学号', trigger: 'blur' },
-    { type: 'number', message: '学号格式有误', trigger: ['blur', 'change'] },
-    {
-      pattern: /^\d{10}$/,
-      message: '学号格式有误',
-      trigger: ['blur', 'change'],
-    },
+    { min: 10, message: '学号格式有误', trigger: ['blur', 'change'] },
+    { max: 10, message: '学号格式有误', trigger: ['blur', 'change'] },
+    { validator: validateStudentID, trigger: ['blur', 'change'] },
   ],
   grade: [{ required: true, message: '请选择年级', trigger: 'blur' }],
 }
