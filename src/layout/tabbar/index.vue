@@ -110,7 +110,6 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { onClickOutside } from '@vueuse/core'
 import { ElNotification } from 'element-plus'
-import useLayoutSettingStore from '@/store/modules/setting'
 import useUserStore from '@/store/modules/user'
 
 let $route = useRoute()
@@ -136,11 +135,6 @@ onClickOutside(input_box, () => {
 onClickOutside(search_box, () => {
   isFocused.value = false
 })
-
-let layoutSettingStore = useLayoutSettingStore()
-const refresh = () => {
-  layoutSettingStore.refresh = !layoutSettingStore.refresh
-}
 
 let userStore = useUserStore()
 
