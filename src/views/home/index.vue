@@ -23,7 +23,8 @@
             </div>
             <!-- 日历 -->
             <div class="col-md-4" style="text-align: center">
-              <h2 v-if="userStore.user_id != 0 && userStore.user_id != null"
+              <h2
+                v-if="userStore.user_id != 0 && userStore.user_id != null"
                 style="
                   font-size: 1.25em;
                   margin: 2.5rem 0 2rem;
@@ -35,7 +36,14 @@
                   {{ userStore.user_name }}
                 </span>
               </h2>
-              <h2 v-else style="font-size: 1.25em; margin: 2.5rem 0 2rem; font-weight: 600;">
+              <h2
+                v-else
+                style="
+                  font-size: 1.25em;
+                  margin: 2.5rem 0 2rem;
+                  font-weight: 600;
+                "
+              >
                 您好！
               </h2>
               <div class="calendar">
