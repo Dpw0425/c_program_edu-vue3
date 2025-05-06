@@ -73,10 +73,19 @@
       <div class="col-md-8">
         <el-card shadow="never">
           <h2>热点题目</h2>
-          <el-table :data="questionList" :style="{ width: '100%' }" >
-              <el-table-column type="index" label="序号" width="60px" align="center" />
-              <el-table-column prop="title" label="题目名称" align="center" />
-              <el-table-column prop="passing_rate" label="通过率" align="center" />
+          <el-table :data="questionList" :style="{ width: '100%' }">
+            <el-table-column
+              type="index"
+              label="序号"
+              width="60px"
+              align="center"
+            />
+            <el-table-column prop="title" label="题目名称" align="center" />
+            <el-table-column
+              prop="passing_rate"
+              label="通过率"
+              align="center"
+            />
           </el-table>
         </el-card>
       </div>
@@ -97,7 +106,10 @@
 import useUserStore from '@/store/modules/user'
 import useCommonStore from '@/store/modules/common'
 import { onMounted, ref } from 'vue'
-import type { QuestionList, questionListResponseData } from '@/api/question/type'
+import type {
+  QuestionList,
+  questionListResponseData,
+} from '@/api/question/type'
 import { reqQuestionList } from '@/api/question'
 
 let questionList = ref<QuestionList>([])
