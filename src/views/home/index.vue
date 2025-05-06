@@ -73,6 +73,11 @@
       <div class="col-md-8">
         <el-card shadow="never">
           <h2>热点题目</h2>
+          <el-table :data="questionList" :style="{ width: '100%' }" >
+              <el-table-column type="index" label="序号" width="60px" align="center" />
+              <el-table-column prop="title" label="题目名称" align="center" />
+              <el-table-column prop="passing_rate" label="通过率" align="center" />
+          </el-table>
         </el-card>
       </div>
 
@@ -91,7 +96,11 @@
 <script setup lang="ts">
 import useUserStore from '@/store/modules/user'
 import useCommonStore from '@/store/modules/common'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+import type { QuestionList, questionListResponseData } from '@/api/question/type'
+import { reqQuestionList } from '@/api/question'
+
+let questionList = ref<QuestionList>([])
 
 let userStore = useUserStore()
 let commonStore = useCommonStore()
@@ -101,11 +110,20 @@ const getImageUrl = (path: string) => {
   return new URL(resolvedPath, import.meta.url).href
 }
 
+const getQuestionList = async () => {
+  let result: questionListResponseData = await reqQuestionList(1, 5, null)
+  if (result.code == 200) {
+    questionList.value = result.data?.question_list as QuestionList
+  }
+}
+
 onMounted(async () => {
   // 加载轮播图
   await commonStore.GetCarousel()
   // 加载日历
   await commonStore.GetCalendar()
+  // 获取热点题目
+  getQuestionList()
 })
 </script>
 
