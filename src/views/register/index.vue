@@ -268,7 +268,7 @@ const validateStudentID = (rules, value, callback) => {
 const rules = {
   user_name: [
     { required: true, message: '请输入昵称', trigger: 'blur' },
-    { min: 2, message: '昵称不得少于 2 个字符', trigger: 'blur' },
+    { min: 2, message: '昵称不得少于 2 个字符', trigger: ['blur', 'change'] },
     { max: 8, message: '昵称最多为 8 个字符', trigger: ['blur', 'change'] },
   ],
   email: [
