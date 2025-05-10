@@ -52,7 +52,7 @@ let useUserStore = defineStore('User', {
     async userInfo() {
       let result: userInfoResponseData = await reqUserInfo()
       if (result.code == 200) {
-        this.user_id = result.data?.user_id as number
+        this.user_id = result.data?.user_id as string
         this.user_name = result.data?.user_name as string
         this.student_id = result.data?.student_id as string
         this.email = result.data?.email as string
