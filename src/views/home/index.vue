@@ -24,7 +24,7 @@
             <!-- 日历 -->
             <div class="col-md-4" style="text-align: center">
               <h2
-                v-if="userStore.user_id != 0 && userStore.user_id != null"
+                v-if="userStore.user_id != '' && userStore.user_id != null"
                 style="
                   font-size: 1.25em;
                   margin: 2.5rem 0 2rem;
