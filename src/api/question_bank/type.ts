@@ -1,4 +1,4 @@
-import type { ResponseData } from "../type"
+import type { ResponseData } from '../type'
 
 export interface bankItem {
   id: number
@@ -11,7 +11,7 @@ export interface bankItem {
 }
 export type BankList = bankItem[]
 export interface getBankListResponseData extends ResponseData {
-    data?: {
-        bank_list: BankList
-    }
+  data?: {
+    bank_list: BankList
+  }
 }

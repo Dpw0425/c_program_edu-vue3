@@ -2,7 +2,12 @@
   <div>
     <el-card class="box-card">
       <div class="tag-container">
-        <div v-for="(item, index) in bankList" :key="item.id" class="tag" :title="item.content">
+        <div
+          v-for="(item, index) in bankList"
+          :key="item.id"
+          class="tag"
+          :title="item.content"
+        >
           {{ item.name }}
         </div>
       </div>
@@ -11,19 +16,24 @@
 </template>
 
 <script setup lang="ts">
-import { reqGetBankList } from '@/api/question_bank';
-import type { BankList, getBankListResponseData } from '@/api/question_bank/type';
-import useUserStore from '@/store/modules/user';
-import { onMounted, reactive } from 'vue';
+import { reqGetBankList } from '@/api/question_bank'
+import type {
+  BankList,
+  getBankListResponseData,
+} from '@/api/question_bank/type'
+import useUserStore from '@/store/modules/user'
+import { onMounted, reactive } from 'vue'
 
 let userStore = useUserStore()
 
 let bankList = reactive<BankList>([])
 
 onMounted(async () => {
-  let result: getBankListResponseData = await reqGetBankList(userStore.grade as number)
+  let result: getBankListResponseData = await reqGetBankList(
+    userStore.grade as number,
+  )
   if (result.code == 200 && result.data?.bank_list) {
-    bankList.splice(0, bankList.length, ...result.data?.bank_list as BankList)
+    bankList.splice(0, bankList.length, ...(result.data?.bank_list as BankList))
   }
 })
 </script>
