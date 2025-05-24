@@ -1,6 +1,6 @@
 import type { ResponseData } from '../type'
 
-interface questionItem {
+export interface questionItem {
   id: number
   title: string
   tag: string[]

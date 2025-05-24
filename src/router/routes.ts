@@ -86,4 +86,13 @@ export const constantRoutes = [
       title: '注册',
     },
   },
+  {
+    // 题目详情
+    path: '/question/detail',
+    component: () => import('@/views/question_detail/index.vue'),
+    name: 'QuestionDetail',
+    meta: {
+      title: '题目详情',
+    },
+  },
 ]
