@@ -122,8 +122,16 @@ const getImageUrl = (path: string) => {
   return new URL(resolvedPath, import.meta.url).href
 }
 
-const getQuestionList = async (page: number, number: number, search: string) => {
-  let result: questionListResponseData = await reqQuestionList(page, number, search)
+const getQuestionList = async (
+  page: number,
+  number: number,
+  search: string,
+) => {
+  let result: questionListResponseData = await reqQuestionList(
+    page,
+    number,
+    search,
+  )
   if (result.code == 200) {
     questionList.value = result.data?.question_list as QuestionList
   }
@@ -135,7 +143,7 @@ onMounted(async () => {
   // 加载日历
   await commonStore.GetCalendar()
   // 获取热点题目
-  getQuestionList(1, 5, "=热点题目")
+  getQuestionList(1, 5, '=热点题目')
 })
 </script>
 

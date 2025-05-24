@@ -2,13 +2,17 @@
   <div>
     <el-card class="box-card">
       <h2>开放题库</h2>
-      <div class="tags-container" v-if="userStore.user_id != ''" ref="container">
+      <div
+        class="tags-container"
+        v-if="userStore.user_id != ''"
+        ref="container"
+      >
         <div
           v-for="(item, index) in bankList"
           :key="item.id"
           class="tag"
           :title="item.content"
-          :ref="el => (tagRefs[index] = el as HTMLElement)"
+          :ref="(el) => (tagRefs[index] = el as HTMLElement)"
         >
           <span>{{ item.name }}</span>
           <span class="tag-count">{{ item.count }}</span>
@@ -18,18 +22,38 @@
       <div class="separator"></div>
 
       <h2>开放题目</h2>
-      <el-table style="margin: 10px 0;" :data="questionList" border>
+      <el-table style="margin: 10px 0" :data="questionList" border>
         <el-table-column label="标题" prop="title" align="center">
           <template #="{ row, $index }">
-            <el-link target="_blank" :underline="false" @click="getQuestionDetail(row)">{{ row.title }}</el-link>
+            <el-link
+              target="_blank"
+              :underline="false"
+              @click="getQuestionDetail(row)"
+            >
+              {{ row.title }}
+            </el-link>
           </template>
         </el-table-column>
-        <el-table-column label="标签" prop="tag" align="center"></el-table-column>
-        <el-table-column label="难度" prop="degree" align="center" width="80px"></el-table-column>
-        <el-table-column label="通过率" prop="passing_rate" align="center" width="500px">
+        <el-table-column
+          label="标签"
+          prop="tag"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          label="难度"
+          prop="degree"
+          align="center"
+          width="80px"
+        ></el-table-column>
+        <el-table-column
+          label="通过率"
+          prop="passing_rate"
+          align="center"
+          width="500px"
+        >
           <template #="{ row, $index }">
             <div class="progress-container">
-              <el-progress 
+              <el-progress
                 :percentage="row.passing_rate"
                 :text-inside="true"
                 :stroke-width="24"
@@ -49,14 +73,18 @@
           layout="prev, pager, next, jumper, ->, total"
           :total="total"
         />
-    </div>
+      </div>
     </el-card>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reqQuestionList } from '@/api/question'
-import type { questionItem, QuestionList, questionListResponseData } from '@/api/question/type'
+import type {
+  questionItem,
+  QuestionList,
+  questionListResponseData,
+} from '@/api/question/type'
 import { reqGetBankList } from '@/api/question_bank'
 import type {
   BankList,
@@ -85,17 +113,21 @@ let questionList = reactive<QuestionList>([])
 
 const getQuestionList = async (pager = 1) => {
   pageNo.value = pager
-  let result: questionListResponseData = await reqQuestionList(pageNo.value, limit.value, null)
+  let result: questionListResponseData = await reqQuestionList(
+    pageNo.value,
+    limit.value,
+    null,
+  )
   if (result.code == 200) {
     questionList = result.data?.question_list as QuestionList
     total.value = result.data?.total as number
   }
 }
 
-const getQuestionDetail =(row: questionItem) => {
+const getQuestionDetail = (row: questionItem) => {
   router.push({
     path: `/question/detail`,
-    query: { id: row.id }
+    query: { id: row.id },
   })
 }
 
@@ -105,12 +137,16 @@ onMounted(async () => {
       userStore.grade as number,
     )
     if (result.code == 200 && result.data?.bank_list) {
-      bankList.splice(0, bankList.length, ...(result.data?.bank_list.map((item) => {
-        return {
-          ...item,
-          count: item.count != null ? item.count : 0,
-        }
-      }) as BankList))
+      bankList.splice(
+        0,
+        bankList.length,
+        ...(result.data?.bank_list.map((item) => {
+          return {
+            ...item,
+            count: item.count != null ? item.count : 0,
+          }
+        }) as BankList),
+      )
     }
   }
 
@@ -148,7 +184,7 @@ onMounted(async () => {
 }
 
 .tag-count {
-  font-size: 14px; 
+  font-size: 14px;
   margin-left: 4px;
   padding: 1px 8px;
   background-color: rgba(220, 222, 225, 0.5);

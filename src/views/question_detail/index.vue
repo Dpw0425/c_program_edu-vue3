@@ -5,17 +5,13 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 
 let route = useRoute()
 let questionId = route.query.id
 
-onMounted(() => {
-
-})
+onMounted(() => {})
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>
