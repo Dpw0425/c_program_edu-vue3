@@ -1,5 +1,8 @@
 import request from '@/utils/request'
-import type { questionDetailResponseData, questionListResponseData } from './type'
+import type {
+  questionDetailResponseData,
+  questionListResponseData,
+} from './type'
 
 const QUESTION_API = '/question'
 
@@ -19,7 +22,9 @@ export const reqQuestionList = (
   )
 
 export const reqQuestionDetail = (id: number) =>
-  request.get<any, questionDetailResponseData>(API.QUESTION_DETAIL_URL + `?id=${id}`)
+  request.get<any, questionDetailResponseData>(
+    API.QUESTION_DETAIL_URL + `?id=${id}`,
+  )
 
 export const reqGetTestData = (id: number) =>
   request.get<any, any>(API.GET_TEST_DATA_URL + `?id=${id}`)

@@ -3,21 +3,23 @@
     <el-card class="question_box">
       <h2>题目描述</h2>
 
-      <h1 style="font-size: 24px; line-height: 32px; font-weight: 600px;">{{ question.title }}</h1>
+      <h1 style="font-size: 24px; line-height: 32px; font-weight: 600px">
+        {{ question.title }}
+      </h1>
 
       <p>{{ question.content }}</p>
 
       <div v-for="(item, index) in testData" :key="index" class="test_data">
-        <div class="test_label">
-          示例 {{ index + 1 }}：
-        </div>
+        <div class="test_label">示例 {{ index + 1 }}：</div>
 
         <p>
-          <strong>输入：</strong>{{ item.input }}
+          <strong>输入：</strong>
+          {{ item.input }}
         </p>
 
         <p>
-          <strong>输出：</strong>{{ item.output }}
+          <strong>输出：</strong>
+          {{ item.output }}
         </p>
 
         <div class="line"></div>
@@ -27,20 +29,25 @@
     <el-card class="answer_box">
       <h2>&lt;/&gt;代码</h2>
 
-      <div style="width: 100%; text-align: right; margin-bottom: 10px;">
-        <el-button type="success" size="default" @click="submitCode">提交</el-button>
+      <div style="width: 100%; text-align: right; margin-bottom: 10px">
+        <el-button type="success" size="default" @click="submitCode">
+          提交
+        </el-button>
       </div>
 
-      <div class="monaco-container" ref="editorContainer">
-        
-      </div>
+      <div class="monaco-container" ref="editorContainer"></div>
     </el-card>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reqGetTestData, reqQuestionDetail } from '@/api/question'
-import type { questionDetailResponseData, questionItem, TestDataList, testDataResponseData } from '@/api/question/type'
+import type {
+  questionDetailResponseData,
+  questionItem,
+  TestDataList,
+  testDataResponseData,
+} from '@/api/question/type'
 import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import * as monaco from 'monaco-editor'
@@ -71,7 +78,9 @@ const submitCode = () => {
 }
 
 onMounted(async () => {
-  let result: questionDetailResponseData = await reqQuestionDetail(Number(questionId))
+  let result: questionDetailResponseData = await reqQuestionDetail(
+    Number(questionId),
+  )
   if (result.code == 200) {
     question.value = result.data?.question_item as questionItem
   }
@@ -136,7 +145,7 @@ onBeforeUnmount(() => {
     font-size: 14px;
     line-height: 1.6;
     color: #262626;
-      
+
     .monaco-container {
       width: 100%;
       height: 100%;
