@@ -41,7 +41,11 @@
 </template>
 
 <script setup lang="ts">
-import { reqCommitAnswer, reqGetTestData, reqQuestionDetail } from '@/api/question'
+import {
+  reqCommitAnswer,
+  reqGetTestData,
+  reqQuestionDetail,
+} from '@/api/question'
 import type {
   commitAnswerForm,
   commitAnswerResponseData,
