@@ -37,3 +37,14 @@ export interface testDataResponseData extends ResponseData {
     test_data: TestDataList
   }
 }
+
+export interface commitAnswerForm {
+  question_id: number
+  answer: string
+}
+
+export interface commitAnswerResponseData extends ResponseData {
+  data?: {
+    result: string
+  }
+}

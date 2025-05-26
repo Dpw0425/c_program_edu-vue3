@@ -41,16 +41,19 @@
 </template>
 
 <script setup lang="ts">
-import { reqGetTestData, reqQuestionDetail } from '@/api/question'
+import { reqCommitAnswer, reqGetTestData, reqQuestionDetail } from '@/api/question'
 import type {
+  commitAnswerForm,
+  commitAnswerResponseData,
   questionDetailResponseData,
   questionItem,
   TestDataList,
   testDataResponseData,
 } from '@/api/question/type'
-import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import * as monaco from 'monaco-editor'
+import { ElMessage, ElNotification } from 'element-plus'
 
 const editorContainer = ref<HTMLElement | null>(null)
 let editorInstance: monaco.editor.IStandaloneCodeEditor | null = null
@@ -65,15 +68,40 @@ let question = ref<questionItem>({
   content: '',
 })
 
+let answer = ref<commitAnswerForm>({
+  question_id: 0,
+  answer: '',
+})
+
 let testData = ref<TestDataList>([])
 
 let route = useRoute()
 const questionId = route.query.id
 
-const submitCode = () => {
+const submitCode = async () => {
   if (editorInstance) {
     let code = editorInstance.getValue()
-    console.log(code)
+    answer.value.question_id = question.value.id
+    answer.value.answer = code
+    let result: commitAnswerResponseData = await reqCommitAnswer(answer.value)
+    if (result.code == 200) {
+      if (result.data?.result == 'Accepted') {
+        ElNotification({
+          type: 'success',
+          message: result.data?.result,
+        })
+      } else {
+        ElNotification({
+          type: 'warning',
+          message: result.data?.result,
+        })
+      }
+    } else {
+      ElMessage({
+        type: 'error',
+        message: result.message,
+      })
+    }
   }
 }
 

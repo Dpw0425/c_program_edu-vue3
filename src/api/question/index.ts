@@ -1,7 +1,10 @@
 import request from '@/utils/request'
 import type {
+  commitAnswerForm,
+  commitAnswerResponseData,
   questionDetailResponseData,
   questionListResponseData,
+  testDataResponseData,
 } from './type'
 
 const QUESTION_API = '/question'
@@ -10,6 +13,7 @@ enum API {
   QUESTION_LIST_URL = QUESTION_API + '/list',
   QUESTION_DETAIL_URL = QUESTION_API + '/detail',
   GET_TEST_DATA_URL = QUESTION_API + '/test_data',
+  COMMIT_ANSWER_URL = QUESTION_API + '/commit_answer',
 }
 
 export const reqQuestionList = (
@@ -27,4 +31,7 @@ export const reqQuestionDetail = (id: number) =>
   )
 
 export const reqGetTestData = (id: number) =>
-  request.get<any, any>(API.GET_TEST_DATA_URL + `?id=${id}`)
+  request.get<any, testDataResponseData>(API.GET_TEST_DATA_URL + `?id=${id}`)
+
+export const reqCommitAnswer = (data: commitAnswerForm) =>
+  request.post<any, commitAnswerResponseData>(API.COMMIT_ANSWER_URL, data)

@@ -120,7 +120,10 @@ const login = async () => {
     await userStore.userLogin(loginForm)
 
     let redirect: any = $route.query.redirect
-    $router.push({ path: redirect || '/' })
+
+    let parsedLocation = $router.resolve(redirect)
+
+    $router.push(parsedLocation)
 
     ElNotification({
       type: 'success',
