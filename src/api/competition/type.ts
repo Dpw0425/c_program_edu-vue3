@@ -1,4 +1,4 @@
-import type { ResponseData } from "../type";
+import type { ResponseData } from '../type'
 
 export interface competitionItem {
   id: number

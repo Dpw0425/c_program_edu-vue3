@@ -143,7 +143,7 @@ const toLogin = () => {
 }
 
 const toPersonal = () => {
-  $router.push({ path: '/personal'})
+  $router.push({ path: '/personal' })
 }
 
 const logout = async () => {
