@@ -49,6 +49,12 @@ export const constantRoutes = [
           icon: 'article',
         },
       },
+      {
+        // 个人中心
+        path: '/personal',
+        component: () => import('@/views/personal/index.vue'),
+        name: 'Personal',
+      }
     ],
   },
   {
