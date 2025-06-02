@@ -1,61 +1,73 @@
 <template>
   <div>
     <div class="personal_container">
-    <el-card class="custom-card" style="width: 1200px; height: 300px;">
-      <div class="header_top">
-        <img :src="personal?.avatar" class="avatar">
-        <div class="user_info">{{ personal?.user_name }}</div>
-      </div>
-
-      <div class="header_bottom">
-        <div class="menu" style="--main-color: #3498db;">
-          <ul class="items">
-            <li v-for="(item, index) in menuItems" :key="index" :class="{ active: activeIndex === index }" @click="activeIndex = index" class="menu-item">{{ item }}</li>
-            <div class="indicator" :style="indicatorStyle"></div>
-          </ul>
+      <el-card class="custom-card" style="width: 1200px; height: 300px">
+        <div class="header_top">
+          <img :src="personal?.avatar" class="avatar" />
+          <div class="user_info">{{ personal?.user_name }}</div>
         </div>
 
-        <div class="user_stats">
-          <div v-for="(stat, index) in statsItems" :key="index" class="stat-item">
-            <span class="stat-label">{{ stat.label }}</span>
-            <span class="stat-value">{{ stat.value }}</span>
+        <div class="header_bottom">
+          <div class="menu" style="--main-color: #3498db">
+            <ul class="items">
+              <li
+                v-for="(item, index) in menuItems"
+                :key="index"
+                :class="{ active: activeIndex === index }"
+                @click="activeIndex = index"
+                class="menu-item"
+              >
+                {{ item }}
+              </li>
+              <div class="indicator" :style="indicatorStyle"></div>
+            </ul>
           </div>
-        </div>
-      </div>
-    </el-card>
-  </div>
 
-  <div class="row">
-    <div class="col-md-8">
-      <el-card shadow="never">
-        <div v-if="activeIndex === 0">
-          <h2>个人主页</h2>
-        </div>
-
-        <div v-if="activeIndex === 1">
-          <h2>我的团队</h2>
-        </div>
-      </el-card>
-    </div>
-
-    <div class="col-md-4">
-      <el-card shadow="never">
-        <div class="user_details">
-          <div class="info" v-for="item in infoItems" :key="item.label">
-            <div class="info-label">{{ item.label }}</div>
-            <div class="info-value">{{ item.value }}</div>
+          <div class="user_stats">
+            <div
+              v-for="(stat, index) in statsItems"
+              :key="index"
+              class="stat-item"
+            >
+              <span class="stat-label">{{ stat.label }}</span>
+              <span class="stat-value">{{ stat.value }}</span>
+            </div>
           </div>
         </div>
       </el-card>
     </div>
-  </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <el-card shadow="never">
+          <div v-if="activeIndex === 0">
+            <h2>个人主页</h2>
+          </div>
+
+          <div v-if="activeIndex === 1">
+            <h2>我的团队</h2>
+          </div>
+        </el-card>
+      </div>
+
+      <div class="col-md-4">
+        <el-card shadow="never">
+          <div class="user_details">
+            <div class="info" v-for="item in infoItems" :key="item.label">
+              <div class="info-label">{{ item.label }}</div>
+              <div class="info-value">{{ item.value }}</div>
+            </div>
+          </div>
+        </el-card>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reqPersonal } from '@/api/user';
-import type { personalDetail, personalResponseData } from '@/api/user/type';
-import { computed, onMounted, ref } from 'vue';
+import { reqPersonal } from '@/api/user'
+import type { personalDetail, personalResponseData } from '@/api/user/type'
+import { computed, onMounted, ref } from 'vue'
 
 let personal = ref<personalDetail>()
 
@@ -67,7 +79,7 @@ const indicatorStyle = computed(() => {
   return {
     width: `${itemWidth}px`,
     transform: `translateX(${activeIndex.value * itemWidth}px)`,
-    backgroundColor: 'var(--main-color, #3498db)'
+    backgroundColor: 'var(--main-color, #3498db)',
   }
 })
 
@@ -186,11 +198,11 @@ onMounted(() => {
   transition: all 0.3s ease;
   position: relative;
   z-index: 2;
-  
+
   &:hover {
     color: var(--main-color, #3498db);
   }
-  
+
   &.active {
     color: var(--main-color, #3498db);
   }
@@ -210,7 +222,7 @@ onMounted(() => {
   font-size: 0.875em;
   display: flex;
   flex-direction: row;
-  gap: .8em;
+  gap: 0.8em;
 }
 
 .stat-item {
@@ -246,6 +258,6 @@ onMounted(() => {
 }
 
 .info-value {
-  color: rgba(0, 0, 0, .45);
+  color: rgba(0, 0, 0, 0.45);
 }
 </style>
