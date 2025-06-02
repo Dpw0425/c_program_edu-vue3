@@ -49,3 +49,28 @@ export interface userInfoResponseData extends ResponseData {
 export interface logoutResponseData extends ResponseData {
   data?: NormalData
 }
+
+// personal
+export interface team {
+  id: number
+  name: string
+  manager: string
+  member: string[]
+  competition_times: number
+}
+export type TeamList = team[]
+export interface personalDetail {
+  user_id: string
+  user_name: string
+  student_id: string
+  email: string
+  avatar: string
+  grade: number
+  status: number
+  team_list: TeamList
+  competition_times: number
+  commit_times: number
+}
+export interface personalResponseData extends ResponseData {
+  data?: personalDetail
+}

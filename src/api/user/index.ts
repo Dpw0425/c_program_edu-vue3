@@ -15,6 +15,7 @@ enum API {
   LOGIN_URL = USER_API + '/login',
   USERINFO_URL = USER_API + '/info',
   LOGOUT_URL = USER_API + '/logout',
+  PERSONAL_URL = USER_API + '/personal'
 }
 
 // 注册接口
@@ -32,3 +33,7 @@ export const reqUserInfo = () =>
 // 退出登录
 export const reqLogout = () =>
   request.delete<any, logoutResponseData>(API.LOGOUT_URL)
+
+// 个人中心
+export const reqPersonal = () =>
+  request.get<any, any>(API.PERSONAL_URL)

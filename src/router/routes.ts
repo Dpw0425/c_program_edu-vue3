@@ -54,6 +54,10 @@ export const constantRoutes = [
         path: '/personal',
         component: () => import('@/views/personal/index.vue'),
         name: 'Personal',
+        meta: {
+          title: '个人中心',
+          icon: 'user',
+        },
       },
     ],
   },

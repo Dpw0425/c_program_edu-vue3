@@ -1,1 +1,1 @@
-export const defaultUserAvatar = '@/assets/images/default_user_avatar.jpg'
+export const defaultUserAvatar = 'default_user_avatar.jpg'
