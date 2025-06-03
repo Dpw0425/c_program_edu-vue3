@@ -46,6 +46,12 @@
 
           <div v-if="activeIndex === 1">
             <h2>我的团队</h2>
+            <el-button type="primary" size="default" icon="Plus" @click="addTeam">创建团队</el-button>
+            <el-table style="margin: 10px 0" :data="personal?.team_list">
+              <el-table-column label="序号" width="80px" align="center" type="index"></el-table-column>
+              <el-table-column label="团队名称" align="center" prop="name"></el-table-column>
+              <el-table-column label="比赛次数" align="center" prop="competition_times"></el-table-column>
+            </el-table>
           </div>
         </el-card>
       </div>
@@ -61,13 +67,40 @@
         </el-card>
       </div>
     </div>
+
+    <el-dialog v-model="addTeamDialogForm" title="创建团队">
+      <el-form style="width: 80%;">
+        <el-form-item label="名称" label-width="80px"><el-input placeholder="请输入团队名称"/></el-form-item>
+        <el-form-item label="参赛选手" label-width="80px"><el-input placeholder="请输入队员ID" /></el-form-item>
+      </el-form>
+
+      <template #footer>
+          <el-button size="default" @click="addCancel">取消</el-button>
+          <el-button type="primary" size="default" @click="addConfirm">确认</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reqPersonal } from '@/api/user'
 import type { personalDetail, personalResponseData } from '@/api/user/type'
+import { ElMessage } from 'element-plus'
 import { computed, onMounted, ref } from 'vue'
+
+let addTeamDialogForm = ref<boolean>(false)
+
+const addCancel = () => {
+  addTeamDialogForm.value = false
+}
+
+const addConfirm = () => {
+  addTeamDialogForm.value = false
+  ElMessage({
+    type: 'success',
+    message: '创建成功！',
+  })
+}
 
 let personal = ref<personalDetail>()
 
@@ -97,6 +130,10 @@ let infoItems = computed(() => {
     { label: '学号', value: personal.value?.student_id },
   ]
 })
+
+const addTeam = () => {
+  addTeamDialogForm.value = true
+}
 
 const getUserDetail = async () => {
   let result: personalResponseData = await reqPersonal()

@@ -42,7 +42,7 @@
               size="medium"
               round
               type="success"
-              @click=""
+              @click="entryCompetition(item.id, item.category, item.name)"
             >
               报名
             </el-button>
@@ -51,7 +51,7 @@
               size="medium"
               round
               type="primary"
-              @click="getCompetitionDetail(item.id)"
+              @click="getCompetitionDetail(item.id, item.contestant)"
             >
               答题
             </el-button>
@@ -100,6 +100,19 @@
         </div>
       </div>
     </el-card>
+
+    <el-dialog v-model="teamDialogForm" title="团队报名">
+      
+    </el-dialog>
+
+    <el-dialog v-model="personalDialogForm" title="个人报名">
+      <h2>即将报名比赛<span style="color: red;">{{ competitionName }}</span>, 是否确认？</h2>
+
+      <template #footer>
+        <el-button size="default" @click="personalCancel">取消</el-button>
+        <el-button type="primary" size="default" @click="personalConfirm">确认</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -109,18 +122,59 @@ import type {
   CompetitionList,
   competitionListResponseData,
 } from '@/api/competition/type'
+import useUserStore from '@/store/modules/user'
+import { ElMessage } from 'element-plus'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+
+let teamDialogForm = ref<boolean>(false)
+
+let personalDialogForm = ref<boolean>(false)
 
 let competitionList = ref<CompetitionList>([])
 
 let router = useRouter()
 
-const getCompetitionDetail = (id: number) => {
-  router.push({
-    path: `/competition/detail`,
-    query: { id: id },
+let userStore = useUserStore()
+
+let competitionName = ref<string>()
+
+const entryCompetition = (id: number, category: number, name: string) => {
+  competitionName.value = name
+
+  if (category) {
+    // 团体赛
+    teamDialogForm.value = true
+  } else {
+    // 个人赛
+    personalDialogForm.value = true
+  }
+}
+
+const personalCancel = () => {
+  personalDialogForm.value = false
+}
+
+const personalConfirm = () => {
+  personalDialogForm.value = false
+  ElMessage({
+    type: 'success',
+    message: '报名成功！'
   })
+}
+
+const getCompetitionDetail = (id: number, contestant: string[]) => {
+  if (contestant.includes(userStore.user_id as string)) {
+    router.push({
+      path: `/competition/detail`,
+      query: { id: id },
+    })
+  } else {
+    ElMessage({
+      type: 'error',
+      message: '您未报名参赛',
+    })
+  }
 }
 
 const getCompetitionList = async () => {
