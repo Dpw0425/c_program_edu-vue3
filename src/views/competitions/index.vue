@@ -119,7 +119,7 @@ let router = useRouter()
 const getCompetitionDetail = (id: number) => {
   router.push({
     path: `/competition/detail`,
-    query: { id: id }
+    query: { id: id },
   })
 }
 

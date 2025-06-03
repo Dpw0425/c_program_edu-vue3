@@ -1,70 +1,115 @@
 <template>
-    <div>
-        <div class="menu_container">
-            <el-card class="custom-card" style="width: 1200px; height: 66px;">
-                <div class="header_bottom">
-                    <div class="menu" style="--main-color: #3498db">
-                        <ul class="items">
-                            <li v-for="(item, index) in menuItems" :key="index" :class="{ active: activeIndex === index }" @click="activeIndex = index" class="menu-item">{{ item }}</li>
-                            <div class="indicator" :style="indicatorStyle"></div>
-                        </ul>
-                    </div>
+  <div>
+    <div class="menu_container">
+      <el-card class="custom-card" style="width: 1200px; height: 66px">
+        <div class="header_bottom">
+          <div class="menu" style="--main-color: #3498db">
+            <ul class="items">
+              <li
+                v-for="(item, index) in menuItems"
+                :key="index"
+                :class="{ active: activeIndex === index }"
+                @click="activeIndex = index"
+                class="menu-item"
+              >
+                {{ item }}
+              </li>
+              <div class="indicator" :style="indicatorStyle"></div>
+            </ul>
+          </div>
 
-                    <div class="competition_stats">
-                        <div v-for="(stat, index) in statsItems" :key="index" class="stat-item">
-                            <span class="stat-label">{{ stat.label }}</span>
-                            <span class="stat-value">{{ stat.value }}</span>
-                        </div>
-                    </div>
-                </div>
-            </el-card>
-        </div>
-
-        <div class="row">
-            <div class="col-md-8">
-                <el-card shadow="never">
-                    <div v-if="activeIndex === 0">
-                        <h2>题单</h2>
-                        <el-table style="margin: 10px 0" :data="questionList">
-                            <el-table-column label="序号" width="80px" align="center" type="index"></el-table-column>
-                            <el-table-column prop="title" label="题目名称" align="center">
-                                <template #="{ row, $index }">
-                                    <el-link target="_blank" :underline="false" @click="getQuestionDetail(row)">{{ row.title }}</el-link>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                    </div>
-
-                    <div v-if="activeIndex === 1">
-                        <h2>排名</h2>
-                        <el-table style="margin: 10px 0" :data="rankList">
-                            <el-table-column label="排名" width="80px" align="center" type="index"></el-table-column>
-                            <el-table-column prop="user_name" label="参赛者" align="center"></el-table-column>
-                        </el-table>
-                    </div>
-                </el-card>
+          <div class="competition_stats">
+            <div
+              v-for="(stat, index) in statsItems"
+              :key="index"
+              class="stat-item"
+            >
+              <span class="stat-label">{{ stat.label }}</span>
+              <span class="stat-value">{{ stat.value }}</span>
             </div>
-
-            <div class="col-md-4">
-                <el-card shadow="never">
-                    <div class="competition_details">
-                        <div class="info" v-for="item in infoItems" :key="item.label">
-                            <div class="info-label">{{ item.label }}</div>
-                            <div class="info-value">{{ item.value }}</div>
-                        </div>
-                    </div>
-                </el-card>
-            </div>
+          </div>
         </div>
+      </el-card>
     </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <el-card shadow="never">
+          <div v-if="activeIndex === 0">
+            <h2>题单</h2>
+            <el-table style="margin: 10px 0" :data="questionList">
+              <el-table-column
+                label="序号"
+                width="80px"
+                align="center"
+                type="index"
+              ></el-table-column>
+              <el-table-column prop="title" label="题目名称" align="center">
+                <template #="{ row, $index }">
+                  <el-link
+                    target="_blank"
+                    :underline="false"
+                    @click="getQuestionDetail(row)"
+                  >
+                    {{ row.title }}
+                  </el-link>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+
+          <div v-if="activeIndex === 1">
+            <h2>排名</h2>
+            <el-table style="margin: 10px 0" :data="rankList">
+              <el-table-column
+                label="排名"
+                width="80px"
+                align="center"
+                type="index"
+              ></el-table-column>
+              <el-table-column
+                prop="user_name"
+                label="参赛者"
+                align="center"
+              ></el-table-column>
+            </el-table>
+          </div>
+        </el-card>
+      </div>
+
+      <div class="col-md-4">
+        <el-card shadow="never">
+          <div class="competition_details">
+            <div class="info" v-for="item in infoItems" :key="item.label">
+              <div class="info-label">{{ item.label }}</div>
+              <div class="info-value">{{ item.value }}</div>
+            </div>
+          </div>
+        </el-card>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { reqCompetitionDetail, reqCompetitionQuestionList, reqRanking } from '@/api/competition';
-import type { competitionDetailResponseData, competitionItem, rankingResponseData, RankList } from '@/api/competition/type';
-import type { questionItem, QuestionList, questionListResponseData } from '@/api/question/type';
-import { computed, onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import {
+  reqCompetitionDetail,
+  reqCompetitionQuestionList,
+  reqRanking,
+} from '@/api/competition'
+import type {
+  competitionDetailResponseData,
+  competitionItem,
+  rankingResponseData,
+  RankList,
+} from '@/api/competition/type'
+import type {
+  questionItem,
+  QuestionList,
+  questionListResponseData,
+} from '@/api/question/type'
+import { computed, onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 let competition = ref<competitionItem>()
 
@@ -81,14 +126,22 @@ let menuItems = ref(['题目列表', '排名'])
 
 let statsItems = computed(() => {
   return [
-    { label: '参赛人数', value: competition.value?.contestant.filter(id => id.trim() != '').length ?? 0 },
+    {
+      label: '参赛人数',
+      value:
+        competition.value?.contestant.filter((id) => id.trim() != '').length ??
+        0,
+    },
     { label: '题目数量', value: questionList.value?.length ?? 0 },
   ]
 })
 
 let infoItems = computed(() => {
   return [
-    { label: '比赛类别', value: competition.value?.category ? '团体赛' : '个人赛' },
+    {
+      label: '比赛类别',
+      value: competition.value?.category ? '团体赛' : '个人赛',
+    },
     { label: '开始时间', value: competition.value?.start_time },
     { label: '截止时间', value: competition.value?.deadline },
   ]
@@ -111,42 +164,46 @@ const getQuestionDetail = (row: questionItem) => {
 }
 
 onMounted(async () => {
-    let result: competitionDetailResponseData = await reqCompetitionDetail(Number(competitionId))
-    if (result.code == 200) {
-        competition.value = result.data?.competition_item as competitionItem
-    }
+  let result: competitionDetailResponseData = await reqCompetitionDetail(
+    Number(competitionId),
+  )
+  if (result.code == 200) {
+    competition.value = result.data?.competition_item as competitionItem
+  }
 
-    let result2: questionListResponseData = await reqCompetitionQuestionList(Number(competitionId))
-    if (result2.code == 200) {
-        questionList.value = result2.data?.question_list as QuestionList
-    }
+  let result2: questionListResponseData = await reqCompetitionQuestionList(
+    Number(competitionId),
+  )
+  if (result2.code == 200) {
+    questionList.value = result2.data?.question_list as QuestionList
+  }
 
-    let result3: rankingResponseData = await reqRanking(Number(competitionId))
-    if (result3.code == 200) {
-        rankList.value = result3.data?.user_list as RankList
-    }
+  let result3: rankingResponseData = await reqRanking(Number(competitionId))
+  if (result3.code == 200) {
+    rankList.value = result3.data?.user_list as RankList
+  }
 })
 </script>
 
 <style scoped lang="scss">
 .menu_container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 0 .5em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 0.5em;
 }
 
 :deep(.custom-card) {
-    --el-card-padding: 0 !important;
+  --el-card-padding: 0 !important;
 
-    .el-card__header {
-        padding: 0;
-    }
+  .el-card__header {
+    padding: 0;
+  }
 
-    .el-card__body {
-        padding: 0;
-        margin: 0;
-    }
+  .el-card__body {
+    padding: 0;
+    margin: 0;
+  }
 }
 
 .header_bottom {
@@ -206,7 +263,7 @@ onMounted(async () => {
 }
 
 .competition_stats {
-    margin-top: 10px;
+  margin-top: 10px;
   font-size: 0.875em;
   display: flex;
   flex-direction: row;

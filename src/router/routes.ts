@@ -67,7 +67,7 @@ export const constantRoutes = [
         meta: {
           title: '比赛详情',
           icon: 'competition',
-        }
+        },
       },
     ],
   },
