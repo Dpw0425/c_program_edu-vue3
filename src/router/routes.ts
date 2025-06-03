@@ -59,6 +59,16 @@ export const constantRoutes = [
           icon: 'user',
         },
       },
+      {
+        // 比赛详情
+        path: '/competition/detail',
+        component: () => import('@/views/competition_detail/index.vue'),
+        name: 'CompetitionDetail',
+        meta: {
+          title: '比赛详情',
+          icon: 'competition',
+        }
+      },
     ],
   },
   {

@@ -42,6 +42,7 @@
               size="medium"
               round
               type="success"
+              @click=""
             >
               报名
             </el-button>
@@ -50,6 +51,7 @@
               size="medium"
               round
               type="primary"
+              @click="getCompetitionDetail(item.id)"
             >
               答题
             </el-button>
@@ -108,8 +110,18 @@ import type {
   competitionListResponseData,
 } from '@/api/competition/type'
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 let competitionList = ref<CompetitionList>([])
+
+let router = useRouter()
+
+const getCompetitionDetail = (id: number) => {
+  router.push({
+    path: `/competition/detail`,
+    query: { id: id }
+  })
+}
 
 const getCompetitionList = async () => {
   let result: competitionListResponseData = await reqCompetitionList()

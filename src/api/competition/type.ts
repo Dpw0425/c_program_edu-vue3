@@ -20,3 +20,23 @@ export interface competitionListResponseData extends ResponseData {
     competition_list: CompetitionList
   }
 }
+
+export interface competitionDetailResponseData extends ResponseData {
+  data?: {
+    competition_item: competitionItem
+  }
+}
+
+export interface rankItem {
+  user_name: string
+  score: number
+  total_commit: number
+}
+
+export type RankList = rankItem[]
+
+export interface rankingResponseData extends ResponseData {
+  data?: {
+    user_list: RankList
+  }
+}
