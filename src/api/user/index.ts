@@ -39,5 +39,4 @@ export const reqLogout = () =>
 export const reqPersonal = () => request.get<any, any>(API.PERSONAL_URL)
 
 // 团队列表
-export const reqGetTeamList = () =>
-  request.get<any, any>(API.TEAM_LIST_URL)
+export const reqGetTeamList = () => request.get<any, any>(API.TEAM_LIST_URL)

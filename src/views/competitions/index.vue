@@ -101,16 +101,20 @@
       </div>
     </el-card>
 
-    <el-dialog v-model="teamDialogForm" title="团队报名">
-      
-    </el-dialog>
+    <el-dialog v-model="teamDialogForm" title="团队报名"></el-dialog>
 
     <el-dialog v-model="personalDialogForm" title="个人报名">
-      <h2>即将报名比赛<span style="color: red;">{{ competitionName }}</span>, 是否确认？</h2>
+      <h2>
+        即将报名比赛
+        <span style="color: red">{{ competitionName }}</span>
+        , 是否确认？
+      </h2>
 
       <template #footer>
         <el-button size="default" @click="personalCancel">取消</el-button>
-        <el-button type="primary" size="default" @click="personalConfirm">确认</el-button>
+        <el-button type="primary" size="default" @click="personalConfirm">
+          确认
+        </el-button>
       </template>
     </el-dialog>
   </div>
@@ -159,7 +163,7 @@ const personalConfirm = () => {
   personalDialogForm.value = false
   ElMessage({
     type: 'success',
-    message: '报名成功！'
+    message: '报名成功！',
   })
 }
 
